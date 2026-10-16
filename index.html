@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="tr">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -10,13 +10,13 @@
   img{max-width:100%}
   [hidden]{display:none!important}
 </style>
-<title>YaşarOBS Ders Kayıt</title>
+<title>YaşarOBS Course Registration</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
 <style>
-/* Layout: login gate (navy splash) → OBS shell with left nav + top bar; main = course list (left) and cart+weekly program (right), stacking on phones. */
+/* Layout: login gate (navy splash) → OBS shell with left nav + top bar; main = course list (left) and cart+weekly program (right), stacking on phones. Bilingual TR/EN via a string dictionary. */
 :root{
   --bg:#eef1f7; --surface:#ffffff; --panel:#f7f9fc; --ink:#152238; --muted:#5c6b84; --line:#dde4ef;
   --accent:#1f4fd1; --accent-soft:#e7edfd; --on-accent:#ffffff;
@@ -37,8 +37,7 @@
   --ok:#4fc68a; --ok-soft:#153626; --warn:#e5a338; --warn-soft:#39290f; --bad:#ff7a73; --bad-soft:#3c1b1b;
   color-scheme:dark}
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:14px;line-height:1.45;margin:0;
-  padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:14px;line-height:1.45;margin:0;padding:0}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 button{font-family:inherit}
 .hidden,[hidden]{display:none!important}
@@ -72,7 +71,6 @@ button{font-family:inherit}
 .gcap{display:flex;align-items:center;gap:8px}
 .gq{font-family:var(--f-mono);font-weight:600;font-size:16px;font-style:italic;background:var(--panel);border:1px solid var(--line);
   border-radius:9px;padding:9px 12px;letter-spacing:.04em;white-space:nowrap}
-.gq s{text-decoration:none}
 .gic{font:inherit;font-size:14px;border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:8px;
   width:38px;height:38px;cursor:pointer;flex:none}
 .gic:hover{color:var(--accent);border-color:var(--accent)}
@@ -85,9 +83,9 @@ button{font-family:inherit}
 .glink{align-self:center;font-size:13px;color:var(--accent);background:none;border:0;cursor:pointer;text-decoration:underline}
 .gtimer{text-align:center;font-size:12px;color:var(--muted)}
 .gtimer b{font-family:var(--f-mono);color:var(--ink)}
-.grow{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.gtr{font:inherit;font-size:12px;font-weight:700;border:1px solid var(--line);background:var(--panel);color:var(--muted);
-  border-radius:7px;padding:4px 9px;cursor:pointer}
+.glang{position:absolute;top:14px;left:16px;display:flex;border:1px solid var(--line);border-radius:7px;overflow:hidden}
+.glang button{font:inherit;font-size:11px;font-weight:700;border:0;background:var(--surface);color:var(--muted);padding:4px 9px;cursor:pointer}
+.glang button.on{background:var(--accent);color:var(--on-accent)}
 
 /* ---------- App shell ---------- */
 .app{display:grid;grid-template-columns:232px 1fr;min-height:100vh}
@@ -143,7 +141,6 @@ h1{font-family:var(--f-display);font-weight:800;font-size:clamp(20px,3vw,26px);l
 .grid2{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:16px;align-items:start}
 @media (max-width:980px){.grid2{grid-template-columns:1fr}}
 
-/* alarm card */
 .alarm{border:2px solid var(--accent);border-radius:14px;background:
   linear-gradient(180deg,color-mix(in srgb,var(--accent) 9%,var(--surface)),var(--surface));padding:16px 18px;margin-bottom:16px}
 .alarm h2{font-family:var(--f-display);font-size:18px;margin:0;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
@@ -155,13 +152,13 @@ h1{font-family:var(--f-display);font-weight:800;font-size:clamp(20px,3vw,26px);l
 .alarm p b{color:var(--ink)}
 .arow{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
 .astat{display:flex;gap:10px;flex-wrap:wrap}
-.astat .s{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 14px;min-width:92px;text-align:center}
+.astat .s{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 14px;min-width:100px;text-align:center}
 .astat .v{font-family:var(--f-display);font-weight:800;font-size:20px;font-variant-numeric:tabular-nums}
 .astat .l{font-size:11px;color:var(--muted)}
 .astat .s.red .v{color:var(--bad)} .astat .s.amber .v{color:var(--warn)}
 .toggle{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;border:1px solid var(--line);background:var(--panel);
   color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer}
-.toggle .sw{width:30px;height:17px;border-radius:999px;background:var(--line);position:relative;transition:.15s}
+.toggle .sw{width:30px;height:17px;border-radius:999px;background:var(--line);position:relative;transition:.15s;flex:none}
 .toggle .sw::after{content:"";position:absolute;top:2px;left:2px;width:13px;height:13px;border-radius:50%;background:#fff;transition:.15s}
 .toggle.on .sw{background:var(--ok)} .toggle.on .sw::after{left:15px}
 .demoline{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
@@ -177,7 +174,6 @@ h1{font-family:var(--f-display);font-weight:800;font-size:clamp(20px,3vw,26px);l
 .why[open] summary::before{content:"▾ "}
 .why p{margin:8px 0 0}
 
-/* status tiles */
 .stiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
 .stile{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
 .stile .l{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
@@ -185,15 +181,13 @@ h1{font-family:var(--f-display);font-weight:800;font-size:clamp(20px,3vw,26px);l
 .pill{font-size:12px;font-weight:700;border-radius:999px;padding:2px 9px}
 .pill.ok{color:var(--ok);background:var(--ok-soft)} .pill.wait{color:var(--warn);background:var(--warn-soft)} .pill.bad{color:var(--bad);background:var(--bad-soft)}
 
-/* course list */
-.seclist{display:flex;flex-direction:column;gap:14px}
 .cbar{display:flex;align-items:center;gap:8px;margin-bottom:10px}
 .cbar input{flex:1;min-width:0;font:inherit;font-size:14px;background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:9px 12px;color:var(--ink)}
 .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
 .tab{font:inherit;font-size:12.5px;font-weight:700;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:999px;padding:6px 13px;cursor:pointer}
 .tab.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.seclist{display:flex;flex-direction:column;gap:14px}
 .course{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-.course.locked{opacity:.96}
 .chead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:13px 15px;border-bottom:1px solid var(--line);background:var(--panel)}
 .ccode{font-family:var(--f-mono);font-size:12px;font-weight:600;background:var(--ink);color:var(--bg);border-radius:6px;padding:3px 8px}
 .cname{font-weight:700;font-size:14.5px;flex:1;min-width:120px}
@@ -223,10 +217,8 @@ h1{font-family:var(--f-display);font-weight:800;font-size:clamp(20px,3vw,26px);l
 .alts .at{font-weight:700;color:var(--ink);margin-bottom:6px;display:flex;align-items:center;gap:6px}
 .altrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:space-between;padding:4px 0}
 .clashnote{font-size:12px;color:var(--bad);font-weight:600;display:flex;align-items:center;gap:6px}
-.secflag{font-size:11.5px;font-weight:700;color:var(--muted)}
 .insel{color:var(--ok)!important}
 
-/* cart + program */
 .side2{display:flex;flex-direction:column;gap:16px;position:sticky;top:64px}
 @media (max-width:980px){.side2{position:static}}
 .panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:15px 16px}
@@ -246,7 +238,6 @@ h1{font-family:var(--f-display);font-weight:800;font-size:clamp(20px,3vw,26px);l
 .aktsrow .lim{font-size:12px;color:var(--muted);font-weight:500}
 .track{height:8px;border-radius:999px;background:var(--line);position:relative;margin:8px 0 4px;overflow:hidden}
 .track i{position:absolute;top:0;left:0;height:100%;border-radius:999px;background:var(--accent)}
-.track .mark{position:absolute;top:-3px;width:2px;height:14px;background:var(--muted);opacity:.6}
 .scale{display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted);font-family:var(--f-mono)}
 .check{font-size:12.5px;font-weight:700;border-radius:9px;padding:9px 12px;margin-top:11px;display:flex;gap:8px}
 .check.ok{color:var(--ok);background:var(--ok-soft)} .check.bad{color:var(--bad);background:var(--bad-soft)}
@@ -261,7 +252,6 @@ h1{font-family:var(--f-display);font-weight:800;font-size:clamp(20px,3vw,26px);l
 .send{width:100%;margin-top:12px;font:inherit;font-weight:800;font-size:14px;border:0;border-radius:10px;background:var(--accent);color:var(--on-accent);padding:12px;cursor:pointer}
 .send:disabled{opacity:.5;cursor:not-allowed}
 
-/* weekly program */
 .prog h3{margin-bottom:4px}
 .prog .ph{font-size:12px;color:var(--muted);margin:0 0 10px}
 .ttwrap{overflow-x:auto}
@@ -278,7 +268,6 @@ h1{font-family:var(--f-display);font-weight:800;font-size:clamp(20px,3vw,26px);l
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .blk{color:#dbe7ff;background:#2a3f66;border-color:rgba(255,255,255,.18)}}
 :root[data-theme="dark"] .blk{color:#dbe7ff;background:#2a3f66;border-color:rgba(255,255,255,.18)}
 
-/* toasts */
 .toasts{position:fixed;right:14px;bottom:14px;z-index:200;display:flex;flex-direction:column;gap:9px;width:min(340px,92vw);
   padding-right:env(safe-area-inset-right,0);padding-bottom:env(safe-area-inset-bottom,0)}
 .toast{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:11px;padding:11px 13px;
@@ -298,186 +287,184 @@ h1{font-family:var(--f-display);font-weight:800;font-size:clamp(20px,3vw,26px);l
 <div id="gate" class="gate">
   <form id="gform" class="gcard" novalidate>
     <span class="gribbon">DEMO</span>
-    <div class="gbrand">
+    <div class="glang"><button type="button" id="lgTR">TR</button><button type="button" id="lgEN" class="on">EN</button></div>
+    <div class="gbrand" style="margin-top:18px">
       <div class="crest">Y</div>
       <div>
         <div class="gname">Yaşar<b>OBS</b></div>
-        <div class="gsub">Yaşar Üniversitesi · Öğrenci Bilgi Sistemi</div>
+        <div class="gsub" data-k="g_sub">Yaşar University · Student Information System</div>
       </div>
     </div>
-    <div class="gwarn"><span>⚠️</span><span><b>Demo — gerçek şifre girmeyin.</b> Alanlar örnek bilgilerle doldurulmuştur ve değiştirilemez; hiçbir bilgi bir yere gönderilmez.</span></div>
-    <label class="gfield" for="gno">Öğrenci numarası
+    <div class="gwarn"><span>⚠️</span><span data-k="g_warn"></span></div>
+    <label class="gfield" data-k="g_no" for="gno">Student number
       <div class="glock"><input id="gno" class="ginput" value="22050111001" readonly><span class="lk">🔒</span></div>
     </label>
-    <label class="gfield" for="gpw">Şifre
+    <label class="gfield" data-k="g_pw" for="gpw">Password
       <div class="glock"><input id="gpw" class="ginput" type="password" value="demo1234" readonly><span class="lk">🔒</span></div>
     </label>
-    <label class="gfield" for="gcap">Güvenlik sorusu
+    <label class="gfield" data-k="g_cap" for="gcap">Security question
       <div class="gcap">
         <span class="gq" id="gq"></span>
-        <button type="button" class="gic" id="gqref" title="Yenile" aria-label="Soruyu yenile">↻</button>
-        <input id="gcap" class="ginput" inputmode="numeric" placeholder="Sonuç" autocomplete="off">
+        <button type="button" class="gic" id="gqref" title="Refresh" aria-label="Refresh question">↻</button>
+        <input id="gcap" class="ginput" inputmode="numeric" data-kph="g_cap_ph" placeholder="Answer" autocomplete="off">
       </div>
     </label>
     <div class="gerr" id="gerr" hidden></div>
-    <button type="submit" class="gbtn">Giriş yap</button>
-    <button type="button" class="gbtn alt" id="gedevlet">e-Devlet ile giriş</button>
-    <button type="button" class="glink" id="gforgot">Şifremi unuttum</button>
-    <div class="gtimer">Girişe kalan süre <b id="gtimer">05:00</b></div>
+    <button type="submit" class="gbtn" data-k="g_login">Sign in</button>
+    <button type="button" class="gbtn alt" id="gedevlet" data-k="g_edevlet">Sign in with e-Devlet</button>
+    <button type="button" class="glink" id="gforgot" data-k="g_forgot">Forgot my password</button>
+    <div class="gtimer"><span data-k="g_timer">Time left to sign in</span> <b id="gtimer">05:00</b></div>
   </form>
 </div>
 
 <!-- ============ APP ============ -->
 <div id="app" class="app" hidden>
   <aside class="side">
-    <div class="sbrand"><div class="crest sm">Y</div><div><div class="gname">Yaşar<b style="color:#7aa2ff">OBS</b></div><div class="gsub">Öğrenci Bilgi Sistemi</div></div></div>
-    <div class="scat">Genel</div>
-    <button class="snav"><span class="si">🏠</span>Ana Sayfa</button>
-    <div class="scat">Dersler ve Dönem İşlemleri</div>
-    <button class="snav on" data-page="kayit"><span class="si">📝</span>Ders Kayıt<span class="cnt" id="navCnt">0</span></button>
-    <button class="snav"><span class="si">📊</span>Notlar</button>
-    <button class="snav" data-page="planner"><span class="si">📅</span>Ders Programı</button>
-    <button class="snav"><span class="si">📄</span>Transkript</button>
-    <div class="scat">Belge Talepleri</div>
-    <button class="snav"><span class="si">🗂️</span>Formlar</button>
-    <button class="snav"><span class="si">📨</span>Belge Talepleri</button>
-    <div class="scat">Akademik</div>
-    <button class="snav"><span class="si">🔁</span>Kredi Transferi</button>
-    <button class="snav"><span class="si">🎓</span>Hazırlık Okulu</button>
-    <button class="snav"><span class="si">🧾</span>Başvurular</button>
+    <div class="sbrand"><div class="crest sm">Y</div><div><div class="gname">Yaşar<b style="color:#7aa2ff">OBS</b></div><div class="gsub" data-k="s_sis">Student Information System</div></div></div>
+    <div class="scat" data-k="s_cat_gen">General</div>
+    <button class="snav" data-k="s_home"><span class="si">🏠</span>Home</button>
+    <div class="scat" data-k="s_cat_course">Courses &amp; Term</div>
+    <button class="snav on" data-page="kayit"><span class="si">📝</span><span data-k="s_reg">Course Registration</span><span class="cnt" id="navCnt">0</span></button>
+    <button class="snav"><span class="si">📊</span><span data-k="s_grades">Grades</span></button>
+    <button class="snav" data-page="planner"><span class="si">📅</span><span data-k="s_planner">Course Planner</span></button>
+    <button class="snav"><span class="si">📄</span><span data-k="s_transcript">Transcript</span></button>
+    <div class="scat" data-k="s_cat_doc">Document Requests</div>
+    <button class="snav"><span class="si">🗂️</span><span data-k="s_forms">Forms</span></button>
+    <button class="snav"><span class="si">📨</span><span data-k="s_docreq">Document Requests</span></button>
+    <div class="scat" data-k="s_cat_acad">Academic</div>
+    <button class="snav"><span class="si">🔁</span><span data-k="s_credit">Credit Transfer</span></button>
+    <button class="snav"><span class="si">🎓</span><span data-k="s_prep">Preparatory School</span></button>
+    <button class="snav"><span class="si">🧾</span><span data-k="s_apps">Applications</span></button>
   </aside>
 
   <div style="min-width:0">
     <header class="top">
-      <span class="uni">Yaşar Üniversitesi</span>
-      <span class="chip">2026-2027 Güz</span>
+      <span class="uni" data-k="t_uni">Yaşar University</span>
+      <span class="chip" data-k="t_term">2026–2027 Fall</span>
       <div class="tsp"></div>
-      <div class="seg"><button class="on" id="segTR">TR</button><button id="segEN">EN</button></div>
+      <div class="seg"><button id="segTR">TR</button><button id="segEN" class="on">EN</button></div>
       <button class="ibtn" id="bell">🔔<span class="dot" id="bellDot" hidden>0</span></button>
-      <div class="tuser"><div class="tav">DÖ</div><div><div class="nm">Demo Öğrenci</div><div class="no">22050111001</div></div></div>
-      <button class="tout" id="logout">Çıkış</button>
+      <div class="tuser"><div class="tav">DS</div><div><div class="nm" data-k="t_name">Demo Student</div><div class="no">22050111001</div></div></div>
+      <button class="tout" id="logout" data-k="t_logout">Sign out</button>
     </header>
 
     <main class="main">
       <section id="pageKayit">
-      <div class="crumb">YaşarOBS <span>›</span> Dersler ve Dönem İşlemleri <span>›</span> Ders Kayıt</div>
-      <div class="h1row"><h1>Ders Kayıt</h1><span class="badge live">Ders seçimi yapılıyor</span></div>
-      <div class="deptline">Enerji Sistemleri Mühendisliği · 2026-2027 Güz · <span class="badge ornek">ÖRNEK VERİ</span></div>
+      <div class="crumb"><span>YaşarOBS</span><span>›</span><span data-k="c_crumb1">Courses &amp; Term</span><span>›</span><span data-k="c_crumb2">Course Registration</span></div>
+      <div class="h1row"><h1 data-k="c_title">Course Registration</h1><span class="badge live" data-k="c_live">Registration open</span></div>
+      <div class="deptline"><span data-k="c_dept">Energy Systems Engineering · 2026–2027 Fall</span> · <span class="badge ornek" data-k="c_sample">SAMPLE DATA</span></div>
 
-      <!-- Kontenjan Alarm -->
       <section class="alarm">
-        <h2>🔔 Kontenjan Alarm Sistemi <span class="tagnew">YENİ</span> <span class="tagcanli">CANLI</span></h2>
-        <p>Dolu şubeyi takip et; yer açılınca <b>ekran uyarısı + sesli bildirim</b> al ve tek tıkla sepete ekle. Sayfayı yenilemene gerek yok. Boşalan koltuk <b>en hızlı yenileyene değil</b>, bekleme listesindeki sıradaki kişiye gider.</p>
+        <h2>🔔 <span data-k="a_title">Quota Alarm</span> <span class="tagnew" data-k="a_new">NEW</span> <span class="tagcanli" data-k="a_live">LIVE</span></h2>
+        <p data-k="a_desc"></p>
         <div class="arow">
           <div class="astat">
-            <div class="s"><div class="v" id="stFollow">0</div><div class="l">Takip edilen</div></div>
-            <div class="s red"><div class="v" id="stFull">0</div><div class="l">Dolu şube</div></div>
-            <div class="s amber"><div class="v" id="stWait">0</div><div class="l">Bekleme listesi</div></div>
+            <div class="s"><div class="v" id="stFollow">0</div><div class="l" data-k="a_follow">Followed</div></div>
+            <div class="s red"><div class="v" id="stFull">0</div><div class="l" data-k="a_full">Full sections</div></div>
+            <div class="s amber"><div class="v" id="stWait">0</div><div class="l" data-k="a_wait">On waitlist</div></div>
           </div>
-          <button class="toggle" id="notifBtn"><span class="sw"></span>Bildirimler kapalı</button>
+          <button class="toggle" id="notifBtn"><span class="sw"></span><span id="notifLbl" data-k="a_notif_off">Notifications off</span></button>
         </div>
         <div class="demoline">
-          <span class="secflag">Denemek için:</span>
-          <button class="btn sm" id="demoOpen">Rastgele dolu şubede yer aç (demo)</button>
-          <span class="secflag" id="demoHint">Aşağıda dolu bir şubede “Takip et” veya “Bekleme listesine katıl”a bas, sonra bu düğmeyle yer açıldığını canlandır.</span>
+          <span class="secflag" data-k="a_demo_lbl" style="font-size:11.5px;font-weight:700;color:var(--muted)">To try it:</span>
+          <button class="btn sm" id="demoOpen" data-k="a_demo_btn">Open a seat in a random full section (demo)</button>
+          <span class="secflag" id="demoHint" data-k="a_demo_hint" style="font-size:11.5px;font-weight:700;color:var(--muted)"></span>
         </div>
-        <details class="why"><summary>Neden bekleme listesi daha adil?</summary>
-          <p>Klasik OBS’de bir koltuk boşaldığında onu <b>o an sayfayı yenileyen</b> kapıyor; iyi internete ve şansa bağlı bir yarışa dönüyor. Burada boşalan koltuk <b>sıradaki öğrenciye</b> otomatik verilir ve kişiye bildirim gider. Kimse ekran başında F5’e basmak zorunda kalmaz.</p>
+        <details class="why"><summary data-k="a_why_sum">Why is a waitlist fairer?</summary>
+          <p data-k="a_why_body"></p>
         </details>
       </section>
 
-      <!-- status tiles -->
       <div class="stiles">
-        <div class="stile"><div class="l">Mali durum</div><div class="v"><span class="pill ok">Temiz</span></div></div>
-        <div class="stile"><div class="l">Danışman onayı</div><div class="v" id="advTile"><span class="pill wait">Bekliyor</span></div></div>
-        <div class="stile"><div class="l">Dönem</div><div class="v">3. yıl · Güz</div></div>
-        <div class="stile"><div class="l">AKTS sınırı</div><div class="v" id="aktsTile">— / 35</div></div>
+        <div class="stile"><div class="l" data-k="st_fin">Financial clearance</div><div class="v"><span class="pill ok" data-k="st_fin_v">Cleared</span></div></div>
+        <div class="stile"><div class="l" data-k="st_adv">Advisor approval</div><div class="v" id="advTile"><span class="pill wait" data-k="st_adv_v">Pending</span></div></div>
+        <div class="stile"><div class="l" data-k="st_term">Term</div><div class="v" data-k="st_term_v">Year 3 · Fall</div></div>
+        <div class="stile"><div class="l" data-k="st_ects">ECTS limit</div><div class="v" id="aktsTile">— / 35</div></div>
       </div>
 
       <div class="grid2">
         <div>
-          <div class="cbar"><input id="search" type="search" placeholder="Ders ara… (ör. ESE 3011, Isı, Güneş)"></div>
+          <div class="cbar"><input id="search" type="search" data-kph="c_search" placeholder="Search a course (e.g. ESE 3011, Heat, Wind)"></div>
           <div class="tabs" id="tabs">
-            <button class="tab on" data-f="all">Tümü</button>
-            <button class="tab" data-f="full">Dolu şubeler</button>
-            <button class="tab" data-f="follow">Takip ettiklerim</button>
-            <button class="tab" data-f="z">Zorunlu</button>
-            <button class="tab" data-f="s">Seçmeli</button>
+            <button class="tab on" data-f="all" data-k="f_all">All</button>
+            <button class="tab" data-f="full" data-k="f_full">Full sections</button>
+            <button class="tab" data-f="follow" data-k="f_follow">Followed</button>
+            <button class="tab" data-f="z" data-k="f_req">Compulsory</button>
+            <button class="tab" data-f="s" data-k="f_elec">Elective</button>
           </div>
           <div class="seclist" id="courses"></div>
         </div>
 
         <div class="side2">
           <section class="panel">
-            <h3>🧺 Sepetim <span id="cartCnt" style="font-family:var(--f-mono);font-size:12px;color:var(--muted);font-weight:500"></span></h3>
+            <h3>🧺 <span data-k="p_cart">My basket</span> <span id="cartCnt" style="font-family:var(--f-mono);font-size:12px;color:var(--muted);font-weight:500"></span></h3>
             <div id="cart"></div>
             <div class="aktswrap">
-              <div class="aktsrow"><span>Toplam AKTS</span><span><span class="big" id="aktsVal">0</span> <span class="lim">/ 35</span></span></div>
+              <div class="aktsrow"><span data-k="p_total">Total ECTS</span><span><span class="big" id="aktsVal">0</span> <span class="lim">/ 35</span></span></div>
               <div class="track" id="aktsTrack"><i id="aktsFill"></i></div>
-              <div class="scale"><span>Asgari 20</span><span>Normal 30</span><span>Azami 35</span></div>
+              <div class="scale"><span data-k="p_min">Min 20</span><span data-k="p_norm">Normal 30</span><span data-k="p_max">Max 35</span></div>
             </div>
             <div id="checkBox"></div>
-            <button class="send" id="sendAdv" disabled>Danışman onayına gönder</button>
+            <button class="send" id="sendAdv" disabled data-k="p_send">Send to advisor</button>
           </section>
 
           <section class="panel prog">
-            <h3>📅 Haftalık ders programı</h3>
-            <p class="ph">Sepetindeki dersler. Çakışan saatler kırmızı çizgili gösterilir.</p>
+            <h3>📅 <span data-k="p_week">Weekly timetable</span></h3>
+            <p class="ph" data-k="p_week_sub">Courses in your basket. Clashing hours are shown with red stripes.</p>
             <div class="ttwrap"><div class="tt" id="tt"></div></div>
           </section>
         </div>
       </div>
-
       </section>
 
-      <!-- ===== PLANLAYICI SAYFASI ===== -->
+      <!-- ===== PLANNER PAGE ===== -->
       <section id="pagePlanner" hidden>
-        <div class="crumb">YaşarOBS <span>›</span> Dersler ve Dönem İşlemleri <span>›</span> Ders Programı</div>
-        <div class="h1row"><h1>Ders Planlayıcı</h1><span class="badge ornek">ÖRNEK VERİ</span></div>
-        <div class="deptline">Sepetindeki derslere en uygun, çakışmasız şube kombinasyonunu bulur. Tercihini seç, “Çakışmasız program öner”e bas.</div>
+        <div class="crumb"><span>YaşarOBS</span><span>›</span><span data-k="c_crumb1">Courses &amp; Term</span><span>›</span><span data-k="s_planner">Course Planner</span></div>
+        <div class="h1row"><h1 data-k="pl_title">Course Planner</h1><span class="badge ornek" data-k="c_sample">SAMPLE DATA</span></div>
+        <div class="deptline" data-k="pl_sub">Finds the best clash-free section combination for the courses in your basket. Pick a preference, then press “Suggest a clash-free timetable”.</div>
         <div class="grid2">
           <div>
             <section class="panel">
-              <h3>⚙️ Tercihin</h3>
+              <h3>⚙️ <span data-k="pl_pref">Your preference</span></h3>
               <div class="tabs" id="plPref">
-                <button class="tab on" data-p="days">En az gün</button>
-                <button class="tab" data-p="gaps">En az boşluk</button>
-                <button class="tab" data-p="early">08:30 dersi yok</button>
-                <button class="tab" data-p="fri">Cuma boş</button>
+                <button class="tab on" data-p="days" data-k="pl_days">Fewest days</button>
+                <button class="tab" data-p="gaps" data-k="pl_gaps">Fewest gaps</button>
+                <button class="tab" data-p="early" data-k="pl_early">No 08:30 class</button>
+                <button class="tab" data-p="fri" data-k="pl_fri">Friday off</button>
               </div>
               <div class="demoline" style="border:0;padding:0;margin-top:10px">
-                <button class="btn pri" id="plGen">Çakışmasız program öner</button>
-                <span class="altnav" id="plNav" hidden style="display:inline-flex;align-items:center;gap:6px">
-                  <button class="btn sm" id="plPrev" aria-label="önceki">‹</button>
+                <button class="btn pri" id="plGen" data-k="pl_gen">Suggest a clash-free timetable</button>
+                <span id="plNav" hidden style="display:inline-flex;align-items:center;gap:6px">
+                  <button class="btn sm" id="plPrev" aria-label="previous">‹</button>
                   <span id="plLbl" style="font-variant-numeric:tabular-nums">1/1</span>
-                  <button class="btn sm" id="plNext" aria-label="sonraki">›</button>
+                  <button class="btn sm" id="plNext" aria-label="next">›</button>
                 </span>
               </div>
               <div id="plMsg" style="margin-top:10px"></div>
             </section>
             <section class="panel" style="margin-top:16px">
-              <h3>🎯 Kayıt günü — Plan A / B / C</h3>
-              <p class="ph">En az yedeği olan dersten başla. Bir şube dolarsa Plan B’ye geç; program yine çakışmasız kalır.</p>
+              <h3>🎯 <span data-k="pl_backup_t">Registration day — Plan A / B / C</span></h3>
+              <p class="ph" data-k="pl_backup_sub">Start with the course that has the fewest backups. If a section fills, move to Plan B; the timetable stays clash-free.</p>
               <div class="ttwrap" id="plBackup"></div>
             </section>
           </div>
           <div class="side2">
             <section class="panel prog">
-              <h3>📅 Önerilen haftalık program</h3>
-              <p class="ph">Seçili şubeler. Çakışan saatler kırmızı çizgili.</p>
+              <h3>📅 <span data-k="pl_prog">Suggested weekly timetable</span></h3>
+              <p class="ph" data-k="pl_prog_sub">Selected sections. Clashing hours shown with red stripes.</p>
               <div class="ttwrap"><div class="tt" id="plTt"></div></div>
             </section>
             <section class="panel">
-              <h3>📋 Danışman özeti</h3>
-              <p class="ph">Kopyalayıp danışmanına gönderebilirsin.</p>
+              <h3>📋 <span data-k="pl_adv_t">Advisor summary</span></h3>
+              <p class="ph" data-k="pl_adv_sub">Copy it and send to your advisor.</p>
               <textarea id="plAdvTxt" readonly style="width:100%;min-height:128px;font:inherit;font-size:12px;line-height:1.5;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:10px 12px;color:var(--ink);resize:vertical"></textarea>
-              <button class="btn sm" id="plCopy" style="margin-top:8px">Kopyala</button>
+              <button class="btn sm" id="plCopy" style="margin-top:8px" data-k="pl_copy">Copy</button>
             </section>
           </div>
         </div>
       </section>
 
-      <footer class="foot">Ders projesi prototipi — Yaşar Üniversitesi’nin resmi sistemi değildir. Ders kotaları, saatler ve bilgiler örnektir; kesin bilgi için <b>obs.yasar.edu.tr</b>’yi kullanın.</footer>
+      <footer class="foot" data-k="foot">Course project prototype — not the official Yaşar University system. Quotas, times and data are samples; use obs.yasar.edu.tr for authoritative information.</footer>
     </main>
   </div>
 </div>
@@ -487,327 +474,377 @@ h1{font-family:var(--f-display);font-weight:800;font-size:clamp(20px,3vw,26px);l
 <script>
 "use strict";
 var $=function(id){return document.getElementById(id)};
-var DAYS=["Pzt","Sal","Çar","Per","Cum"];
-function fm(m){var h=Math.floor(m/60),x=m%60;return (h<10?"0":"")+h+":"+(x<10?"0":"")+x}
-function timeStr(gun){return gun.map(function(g){return DAYS[g[0]]+" "+fm(g[1])+"–"+fm(g[2])}).join(", ")}
+var LANG="en";
 
-/* ---------- Student + catalog (örnek veri, Enerji Sistemleri 3. yıl Güz) ---------- */
-var STUDENT={no:"22050111001",ad:"Demo Öğrenci",gpa:2.75,azami:35,normal:30,asgari:20,
+/* ---------- Dictionary ---------- */
+var I18N={
+ tr:{
+  g_sub:"Yaşar Üniversitesi · Öğrenci Bilgi Sistemi",
+  g_warn:"Demo — gerçek şifre girmeyin. Alanlar örnek bilgilerle doldurulmuştur ve değiştirilemez; hiçbir bilgi bir yere gönderilmez.",
+  g_no:"Öğrenci numarası",g_pw:"Şifre",g_cap:"Güvenlik sorusu",g_cap_ph:"Sonuç",
+  g_login:"Giriş yap",g_edevlet:"e-Devlet ile giriş",g_forgot:"Şifremi unuttum",g_timer:"Girişe kalan süre",
+  s_sis:"Öğrenci Bilgi Sistemi",s_cat_gen:"Genel",s_home:"Ana Sayfa",s_cat_course:"Dersler ve Dönem İşlemleri",
+  s_reg:"Ders Kayıt",s_grades:"Notlar",s_planner:"Ders Programı",s_transcript:"Transkript",
+  s_cat_doc:"Belge Talepleri",s_forms:"Formlar",s_docreq:"Belge Talepleri",s_cat_acad:"Akademik",
+  s_credit:"Kredi Transferi",s_prep:"Hazırlık Okulu",s_apps:"Başvurular",
+  t_uni:"Yaşar Üniversitesi",t_term:"2026-2027 Güz",t_name:"Demo Öğrenci",t_logout:"Çıkış",
+  c_crumb1:"Dersler ve Dönem İşlemleri",c_crumb2:"Ders Kayıt",c_title:"Ders Kayıt",c_live:"Ders seçimi yapılıyor",
+  c_dept:"Enerji Sistemleri Mühendisliği · 2026-2027 Güz",c_sample:"ÖRNEK VERİ",c_search:"Ders ara… (ör. ESE 3011, Isı, Rüzgâr)",
+  a_title:"Kontenjan Alarm Sistemi",a_new:"YENİ",a_live:"CANLI",
+  a_desc:"Dolu şubeyi takip et; yer açılınca <b>ekran uyarısı + sesli bildirim</b> al ve tek tıkla sepete ekle. Sayfayı yenilemene gerek yok. Boşalan koltuk <b>en hızlı yenileyene değil</b>, bekleme listesindeki sıradaki kişiye gider.",
+  a_follow:"Takip edilen",a_full:"Dolu şube",a_wait:"Bekleme listesi",
+  a_notif_off:"Bildirimler kapalı",a_notif_on:"Bildirimler açık",
+  a_demo_lbl:"Denemek için:",a_demo_btn:"Rastgele dolu şubede yer aç (demo)",
+  a_demo_hint:"Aşağıda dolu bir şubede “Takip et” ya da “Bekleme listesine katıl”a bas, sonra bu düğmeyle yer açıldığını canlandır.",
+  a_why_sum:"Neden bekleme listesi daha adil?",
+  a_why_body:"Klasik OBS’de bir koltuk boşaldığında onu <b>o an sayfayı yenileyen</b> kapıyor; iyi internete ve şansa bağlı bir yarışa dönüyor. Burada boşalan koltuk <b>sıradaki öğrenciye</b> otomatik verilir ve kişiye bildirim gider.",
+  st_fin:"Mali durum",st_fin_v:"Temiz",st_adv:"Danışman onayı",st_adv_v:"Bekliyor",st_adv_ok:"Onaylandı",
+  st_term:"Dönem",st_term_v:"3. yıl · Güz",st_ects:"AKTS sınırı",
+  f_all:"Tümü",f_full:"Dolu şubeler",f_follow:"Takip ettiklerim",f_req:"Zorunlu",f_elec:"Seçmeli",
+  p_cart:"Sepetim",p_total:"Toplam AKTS",p_min:"Asgari 20",p_norm:"Normal 30",p_max:"Azami 35",p_send:"Danışman onayına gönder",
+  p_week:"Haftalık ders programı",p_week_sub:"Sepetindeki dersler. Çakışan saatler kırmızı çizgili gösterilir.",
+  pl_title:"Ders Planlayıcı",pl_sub:"Sepetindeki derslere en uygun, çakışmasız şube kombinasyonunu bulur. Tercihini seç, “Çakışmasız program öner”e bas.",
+  pl_pref:"Tercihin",pl_days:"En az gün",pl_gaps:"En az boşluk",pl_early:"08:30 dersi yok",pl_fri:"Cuma boş",
+  pl_gen:"Çakışmasız program öner",pl_backup_t:"Kayıt günü — Plan A / B / C",
+  pl_backup_sub:"En az yedeği olan dersten başla. Bir şube dolarsa Plan B’ye geç; program yine çakışmasız kalır.",
+  pl_prog:"Önerilen haftalık program",pl_prog_sub:"Seçili şubeler. Çakışan saatler kırmızı çizgili.",
+  pl_adv_t:"Danışman özeti",pl_adv_sub:"Kopyalayıp danışmanına gönderebilirsin.",pl_copy:"Kopyala",
+  foot:"Ders projesi prototipi — Yaşar Üniversitesi’nin resmi sistemi değildir. Kontenjan, saat ve bilgiler örnektir; kesin bilgi için obs.yasar.edu.tr’yi kullanın.",
+  // dynamic
+  tbl_hash:"#",tbl_course:"Ders",tbl_pa:"Plan A",tbl_pb:"Plan B",tbl_pc:"Plan C",
+  sec:"Şube",incart:"· sepette ✓",
+  st_full:"Dolu",st_amber:"Az kaldı",st_free:"boş yer",
+  b_remove:"Sepetten çıkar",b_add:"Sepete ekle",b_follow:"🔔 Takip et",b_following:"🔔 Takipte ✓",
+  b_wait:"⏳ Bekleme listesine katıl",b_waiting:"⏳ Listedesin ✓",b_open:"+ Yer aç (demo)",b_open_t:"OBS’de birinin dersi bırakmasını canlandırır",
+  clash_with:function(c){return "⛔ "+c+" ile çakışıyor — kilitli"},
+  wl_line:function(n,you){return "⏳ Bekleme listesi: <b>"+n+" kişi</b>"+you+". Yer açılınca sıradaki kişiye verilir, en hızlı yenileyene değil."},
+  wl_pos:function(p){return " (sıran: "+p+")"},
+  alts_t:"🔀 Alternatif şubeler",alts_free:"boş yer",alts_none:"Bu dersin başka boş şubesi yok. Bekleme listesine katılabilirsin.",
+  locked:function(onk){return "🔒 "+onk+" dersini geçmeden bu derse kayıt olunamaz."},
+  pre:"Önkoşul",req:"Zorunlu",elec:"Seçmeli",
+  empty_cart:"Sepetin boş. Soldan ders ekle.",no_filter:"Bu süzgece uyan ders yok.",n_courses:function(n){return n+" ders"},
+  chk_over:function(m){return "Azami "+m+" AKTS aşıldı."},chk_under:function(m){return "Asgari "+m+" AKTS’nin altındasın."},
+  chk_clash:function(x){return "Çakışma: "+x+"."},chk_before:"Göndermeden önce:",chk_ok:"Çakışma, AKTS ve önkoşul kontrolleri tamam.",
+  sent:"Danışmana gönderildi ✓",
+  pl_need:"Önce Ders Kayıt sayfasından sepete ders ekle.",
+  pl_stat:function(d,free,gaps){return d+" gün"+(free?(" · boş: "+free):" · boş gün yok")+" · "+gaps+" saat boşluk"},
+  pl_noyed:"Yedek yok",
+  days:["Pzt","Sal","Çar","Per","Cum"],
+  adv_head:function(){return ["2026-2027 Güz · Enerji Sistemleri Mühendisliği","Demo Öğrenci (22050111001)","","Seçilen dersler:"]},
+  adv_total:function(t,clash){return "Toplam: "+t+" AKTS · "+(clash?"DİKKAT: çakışma var":"Çakışma yok")},
+  adv_sec:"Şube",
+  // toasts
+  t_pre_t:"Önkoşul eksik",t_pre_b:function(onk){return "Bu dersi almak için önce "+onk+" dersini geçmelisin."},
+  t_clash_t:"Çakışma",t_clash_b:function(c){return "Bu şube "+c+" ile aynı saatte. Önce onu değiştir ya da başka şube seç."},
+  t_ects_t:"AKTS sınırı",t_ects_b:function(m){return "Bu ders sepete eklenirse azami "+m+" AKTS aşılıyor. Önce bir ders çıkar."},
+  t_full_t:"Şube dolu",t_full_b:"Bu şubede boş yer yok. Takip et ya da bekleme listesine katıl.",
+  t_added_t:"Sepete eklendi",t_added_b:function(c,id){return c+" Şube "+id+" sepetine eklendi."},
+  t_unfol_t:"Takipten çıktın",t_unfol_b:function(c,id){return c+" Şube "+id+" artık takip edilmiyor."},
+  t_fol_t:"Takibe alındı",t_fol_b:function(c,id){return c+" Şube "+id+" dolu. Yer açılınca haber vereceğim."},
+  t_tip_t:"İpucu",t_tip_b:"Masaüstü bildirimi için üstteki “Bildirimler” düğmesini aç.",
+  t_unwait_t:"Bekleme listesinden çıktın",t_unwait_b:function(c,id){return c+" Şube "+id+"."},
+  t_wait_t:"Bekleme listesine katıldın",t_wait_b:function(n){return "Sıran: "+n+". kişi. Yer açılınca sıradakine verilir."},
+  t_seatyou_t:"Sıran geldi!",t_seatyou_b:function(c,id){return c+" Şube "+id+" sepetine otomatik eklendi. Kaydı tamamlamayı unutma."},
+  t_next_t:"Koltuk sıradakine verildi",t_next_b:function(f){return "Boşalan yer bekleme listesindeki "+f+"’e verildi — yenileme yarışı yok."},
+  t_already_t:"Zaten boş",t_already_b:"Bu şubede zaten boş yer var.",
+  t_opened_t:"Yer açıldı!",t_opened_b:function(c,id){return c+" Şube "+id+" şubesinde yer açıldı. Aşağıdan tek tıkla ekleyebilirsin."},
+  t_opened2_t:"Bir kontenjan açıldı",t_opened2_b:function(c,id,f){return c+" Şube "+id+" artık "+f+" boş."},
+  t_nofull_t:"Dolu şube kalmadı",t_nofull_b:"Canlandıracak dolu şube yok.",
+  t_warnclash_t:"Dikkat: çakışma",t_warnclash_b:function(c,cl){return "Kazandığın "+c+" şubesi "+cl+" ile çakışıyor. Programdan birini değiştir."},
+  t_notifon_t:"Bildirimler açık",t_notifon_b:"Yer açıldığında ekranda ve (izin verirsen) masaüstünde uyarı alırsın.",
+  t_advok_t:"Danışman onayı",t_advok_b:"Danışmanın 2026-2027 Güz kaydını onayladı. Program “Ders Programı” sayfanda.",
+  t_login_t:"Giriş başarılı",t_login_b:"Ders kayıt dönemi açık. Kolay gelsin, Demo Öğrenci.",
+  t_plan_t:"Program hazır",t_plan_b:function(n){return n+" çakışmasız seçenek bulundu; en iyisi uygulandı."},
+  t_noplan_t:"Program kurulamadı",t_noplan_b:"Bu derslerle çakışmasız program yok. Bir ders çıkar ya da daha çok şubesi olan bir ders dene.",
+  t_copied_t:"Kopyalandı",t_copied_b:"Danışman özeti panoya kopyalandı.",t_selected_t:"Metni seçtim",t_selected_b:"Ctrl/Cmd+C ile kopyalayabilirsin.",
+  t_reset_t:"Şifre sıfırlama",t_reset_b:"Demo olduğundan şifre sıfırlanmaz. Gerçek işlem için obs.yasar.edu.tr.",
+  t_edevlet_t:"e-Devlet",t_edevlet_b:"Demo sürümde e-Devlet girişi kapalı. Güvenlik sorusunu yanıtlayıp “Giriş yap”a bas.",
+  g_err_cap:"Güvenlik sorusunu yanıtla.",g_err_capw:"Güvenlik sorusu yanlış. Yeni soruyu yanıtla.",
+  notif_src:"YaşarOBS · KontenjanAlarm · şimdi"
+ },
+ en:{
+  g_sub:"Yaşar University · Student Information System",
+  g_warn:"Demo — do not enter a real password. Fields are filled with sample data and locked; nothing is sent anywhere.",
+  g_no:"Student number",g_pw:"Password",g_cap:"Security question",g_cap_ph:"Answer",
+  g_login:"Sign in",g_edevlet:"Sign in with e-Devlet",g_forgot:"Forgot my password",g_timer:"Time left to sign in",
+  s_sis:"Student Information System",s_cat_gen:"General",s_home:"Home",s_cat_course:"Courses & Term",
+  s_reg:"Course Registration",s_grades:"Grades",s_planner:"Course Planner",s_transcript:"Transcript",
+  s_cat_doc:"Document Requests",s_forms:"Forms",s_docreq:"Document Requests",s_cat_acad:"Academic",
+  s_credit:"Credit Transfer",s_prep:"Preparatory School",s_apps:"Applications",
+  t_uni:"Yaşar University",t_term:"2026–2027 Fall",t_name:"Demo Student",t_logout:"Sign out",
+  c_crumb1:"Courses & Term",c_crumb2:"Course Registration",c_title:"Course Registration",c_live:"Registration open",
+  c_dept:"Energy Systems Engineering · 2026–2027 Fall",c_sample:"SAMPLE DATA",c_search:"Search a course (e.g. ESE 3011, Heat, Wind)",
+  a_title:"Quota Alarm",a_new:"NEW",a_live:"LIVE",
+  a_desc:"Follow a full section; when a seat opens you get an <b>on-screen alert + sound</b> and add it with one click. No need to refresh. A freed seat goes to the <b>next person in line</b>, not the fastest to refresh.",
+  a_follow:"Followed",a_full:"Full sections",a_wait:"On waitlist",
+  a_notif_off:"Notifications off",a_notif_on:"Notifications on",
+  a_demo_lbl:"To try it:",a_demo_btn:"Open a seat in a random full section (demo)",
+  a_demo_hint:"Below, press “Follow” or “Join waitlist” on a full section, then use this button to simulate a seat opening.",
+  a_why_sum:"Why is a waitlist fairer?",
+  a_why_body:"In classic OBS, a freed seat is grabbed by <b>whoever is refreshing at that moment</b> — a race that rewards fast internet and luck. Here a freed seat goes to the <b>next student in line</b> automatically, and that person is notified.",
+  st_fin:"Financial clearance",st_fin_v:"Cleared",st_adv:"Advisor approval",st_adv_v:"Pending",st_adv_ok:"Approved",
+  st_term:"Term",st_term_v:"Year 3 · Fall",st_ects:"ECTS limit",
+  f_all:"All",f_full:"Full sections",f_follow:"Followed",f_req:"Compulsory",f_elec:"Elective",
+  p_cart:"My basket",p_total:"Total ECTS",p_min:"Min 20",p_norm:"Normal 30",p_max:"Max 35",p_send:"Send to advisor",
+  p_week:"Weekly timetable",p_week_sub:"Courses in your basket. Clashing hours are shown with red stripes.",
+  pl_title:"Course Planner",pl_sub:"Finds the best clash-free section combination for the courses in your basket. Pick a preference, then press “Suggest a clash-free timetable”.",
+  pl_pref:"Your preference",pl_days:"Fewest days",pl_gaps:"Fewest gaps",pl_early:"No 08:30 class",pl_fri:"Friday off",
+  pl_gen:"Suggest a clash-free timetable",pl_backup_t:"Registration day — Plan A / B / C",
+  pl_backup_sub:"Start with the course that has the fewest backups. If a section fills, move to Plan B; the timetable stays clash-free.",
+  pl_prog:"Suggested weekly timetable",pl_prog_sub:"Selected sections. Clashing hours shown with red stripes.",
+  pl_adv_t:"Advisor summary",pl_adv_sub:"Copy it and send to your advisor.",pl_copy:"Copy",
+  foot:"Course project prototype — not the official Yaşar University system. Quotas, times and data are samples; use obs.yasar.edu.tr for authoritative information.",
+  tbl_hash:"#",tbl_course:"Course",tbl_pa:"Plan A",tbl_pb:"Plan B",tbl_pc:"Plan C",
+  sec:"Section",incart:"· in basket ✓",
+  st_full:"Full",st_amber:"Almost full",st_free:"free",
+  b_remove:"Remove",b_add:"Add to basket",b_follow:"🔔 Follow",b_following:"🔔 Following ✓",
+  b_wait:"⏳ Join waitlist",b_waiting:"⏳ On waitlist ✓",b_open:"+ Open a seat (demo)",b_open_t:"Simulates someone dropping the course in OBS",
+  clash_with:function(c){return "⛔ Clashes with "+c+" — locked"},
+  wl_line:function(n,you){return "⏳ Waitlist: <b>"+n+" people</b>"+you+". A freed seat goes to the next in line, not the fastest refresher."},
+  wl_pos:function(p){return " (your spot: "+p+")"},
+  alts_t:"🔀 Alternative sections",alts_free:"free",alts_none:"This course has no other open section. You can join the waitlist.",
+  locked:function(onk){return "🔒 You cannot register for this course without passing "+onk+" first."},
+  pre:"Prerequisite",req:"Compulsory",elec:"Elective",
+  empty_cart:"Your basket is empty. Add a course from the left.",no_filter:"No course matches this filter.",n_courses:function(n){return n+(n===1?" course":" courses")},
+  chk_over:function(m){return "Over the maximum of "+m+" ECTS."},chk_under:function(m){return "Below the minimum of "+m+" ECTS."},
+  chk_clash:function(x){return "Clash: "+x+"."},chk_before:"Before you send:",chk_ok:"Clash, ECTS and prerequisite checks all pass.",
+  sent:"Sent to advisor ✓",
+  pl_need:"Add courses to your basket from the Course Registration page first.",
+  pl_stat:function(d,free,gaps){return d+(d===1?" day":" days")+(free?(" · free: "+free):" · no free day")+" · "+gaps+"h of gaps"},
+  pl_noyed:"No backup",
+  days:["Mon","Tue","Wed","Thu","Fri"],
+  adv_head:function(){return ["2026–2027 Fall · Energy Systems Engineering","Demo Student (22050111001)","","Selected courses:"]},
+  adv_total:function(t,clash){return "Total: "+t+" ECTS · "+(clash?"WARNING: there is a clash":"No clash")},
+  adv_sec:"Section",
+  t_pre_t:"Missing prerequisite",t_pre_b:function(onk){return "To take this course you must pass "+onk+" first."},
+  t_clash_t:"Clash",t_clash_b:function(c){return "This section is at the same time as "+c+". Change that first or pick another section."},
+  t_ects_t:"ECTS limit",t_ects_b:function(m){return "Adding this course would exceed the maximum of "+m+" ECTS. Remove a course first."},
+  t_full_t:"Section full",t_full_b:"No open seat in this section. Follow it or join the waitlist.",
+  t_added_t:"Added to basket",t_added_b:function(c,id){return c+" Section "+id+" added to your basket."},
+  t_unfol_t:"Unfollowed",t_unfol_b:function(c,id){return c+" Section "+id+" is no longer followed."},
+  t_fol_t:"Following",t_fol_b:function(c,id){return c+" Section "+id+" is full. I’ll alert you when a seat opens."},
+  t_tip_t:"Tip",t_tip_b:"Turn on the “Notifications” button above for a desktop alert.",
+  t_unwait_t:"Left the waitlist",t_unwait_b:function(c,id){return c+" Section "+id+"."},
+  t_wait_t:"Joined the waitlist",t_wait_b:function(n){return "Your spot: "+n+". When a seat opens it goes to the next in line."},
+  t_seatyou_t:"Your turn!",t_seatyou_b:function(c,id){return c+" Section "+id+" was added to your basket automatically. Don’t forget to complete registration."},
+  t_next_t:"Seat given to next in line",t_next_b:function(f){return "The freed seat went to "+f+" on the waitlist — no refresh race."},
+  t_already_t:"Already open",t_already_b:"This section already has open seats.",
+  t_opened_t:"A seat opened!",t_opened_b:function(c,id){return c+" Section "+id+" now has an open seat. Add it with one click below."},
+  t_opened2_t:"A seat opened",t_opened2_b:function(c,id,f){return c+" Section "+id+" now has "+f+" free."},
+  t_nofull_t:"No full sections left",t_nofull_b:"No full section to simulate.",
+  t_warnclash_t:"Heads up: clash",t_warnclash_b:function(c,cl){return "The "+c+" section you won clashes with "+cl+". Change one in your timetable."},
+  t_notifon_t:"Notifications on",t_notifon_b:"When a seat opens you’ll get an on-screen and (if allowed) desktop alert.",
+  t_advok_t:"Advisor approval",t_advok_b:"Your advisor approved your 2026–2027 Fall registration. Your timetable is on the Course Planner page.",
+  t_login_t:"Signed in",t_login_b:"Registration is open. Good luck, Demo Student.",
+  t_plan_t:"Timetable ready",t_plan_b:function(n){return n+" clash-free option(s) found; the best was applied."},
+  t_noplan_t:"No timetable found",t_noplan_b:"No clash-free timetable with these courses. Remove one, or try a course with more sections.",
+  t_copied_t:"Copied",t_copied_b:"The advisor summary was copied to the clipboard.",t_selected_t:"Text selected",t_selected_b:"Press Ctrl/Cmd+C to copy.",
+  t_reset_t:"Password reset",t_reset_b:"This is a demo, so passwords aren’t reset. Use obs.yasar.edu.tr for the real thing.",
+  t_edevlet_t:"e-Devlet",t_edevlet_b:"e-Devlet sign-in is off in this demo. Answer the security question and press “Sign in”.",
+  g_err_cap:"Answer the security question.",g_err_capw:"Wrong answer. Answer the new question.",
+  notif_src:"YaşarOBS · QuotaAlarm · now"
+ }
+};
+function T(k){return (I18N[LANG][k]!==undefined?I18N[LANG][k]:I18N.en[k])}
+
+/* ---------- Catalog (sample, Energy Systems Eng. Year 3 Fall) ---------- */
+var STUDENT={no:"22050111001",ad:"Demo",gpa:2.75,azami:35,normal:30,asgari:20,
   passed:["ESE 2001","ESE 2002","MATH 2261","MATH 2263","PHYS 1121"]};
-
-// gün: [günIndex(0=Pzt..4=Cum), başlangıçDk, bitişDk]
 var COURSES=[
- {code:"ESE 3001",ad:"Isı Transferi",akts:6,tur:"z",onk:"ESE 2001",secs:[
+ {code:"ESE 3001",ad:{tr:"Isı Transferi",en:"Heat Transfer"},akts:6,tur:"z",onk:"ESE 2001",secs:[
    {id:"1",hoca:"Prof. Dr. Oya Güneş",gun:[[1,570,740]],cap:45,dolu:45},
-   {id:"2",hoca:"Dr. Öğr. Üyesi Tolga Er",gun:[[3,810,980]],cap:45,dolu:43}
- ]},
- {code:"ESE 3011",ad:"Yenilenebilir Enerji Sistemleri",akts:6,tur:"z",onk:null,secs:[
+   {id:"2",hoca:"Dr. Öğr. Üyesi Tolga Er",gun:[[3,810,980]],cap:45,dolu:43}]},
+ {code:"ESE 3011",ad:{tr:"Yenilenebilir Enerji Sistemleri",en:"Renewable Energy Systems"},akts:6,tur:"z",onk:null,secs:[
    {id:"1",hoca:"Dr. Öğr. Üyesi Ece Kaya",gun:[[4,570,740]],cap:40,dolu:40},
    {id:"2",hoca:"Doç. Dr. Mert Aydın",gun:[[1,810,980]],cap:40,dolu:38},
-   {id:"3",hoca:"Prof. Dr. Selim Arslan",gun:[[4,810,980]],cap:40,dolu:40}
- ]},
- {code:"ESE 3021",ad:"Akışkanlar Mekaniği",akts:6,tur:"z",onk:"MATH 2261",secs:[
-   {id:"1",hoca:"Prof. Dr. Deniz Yıldız",gun:[[0,810,980]],cap:40,dolu:31}
- ]},
- {code:"ESE 3031",ad:"Elektrik Makineleri",akts:5,tur:"z",onk:null,secs:[
+   {id:"3",hoca:"Prof. Dr. Selim Arslan",gun:[[4,810,980]],cap:40,dolu:40}]},
+ {code:"ESE 3021",ad:{tr:"Akışkanlar Mekaniği",en:"Fluid Mechanics"},akts:6,tur:"z",onk:"MATH 2261",secs:[
+   {id:"1",hoca:"Prof. Dr. Deniz Yıldız",gun:[[0,810,980]],cap:40,dolu:31}]},
+ {code:"ESE 3031",ad:{tr:"Elektrik Makineleri",en:"Electrical Machines"},akts:5,tur:"z",onk:null,secs:[
    {id:"1",hoca:"Dr. Öğr. Üyesi Barış Çelik",gun:[[2,570,680]],cap:40,dolu:34},
-   {id:"2",hoca:"Dr. Öğr. Üyesi Barış Çelik",gun:[[3,570,680]],cap:40,dolu:40}
- ]},
- {code:"ENG 3001",ad:"Teknik İngilizce",akts:3,tur:"z",onk:null,secs:[
-   {id:"2",hoca:"Okt. Aslı Demir",gun:[[1,510,570],[3,510,570]],cap:60,dolu:41}
- ]},
- {code:"ESE 3260",ad:"Rüzgâr Enerjisi Sistemleri",akts:5,tur:"s",onk:null,secs:[
-   {id:"1",hoca:"Doç. Dr. Kerem Şahin",gun:[[2,810,980]],cap:30,dolu:19}
- ]},
- {code:"ESE 3504",ad:"Akıllı Enerji Sistemleri",akts:5,tur:"s",onk:null,secs:[
-   {id:"1",hoca:"Dr. Öğr. Üyesi Nil Acar",gun:[[3,810,980]],cap:30,dolu:26}
- ]},
- {code:"ESE 4212",ad:"Enerji Depolama Sistemleri",akts:5,tur:"s",onk:"ESE 3011",secs:[
-   {id:"1",hoca:"Prof. Dr. Selim Arslan",gun:[[1,570,740]],cap:30,dolu:22}
- ]}
+   {id:"2",hoca:"Dr. Öğr. Üyesi Barış Çelik",gun:[[3,570,680]],cap:40,dolu:40}]},
+ {code:"ENG 3001",ad:{tr:"Teknik İngilizce",en:"Technical English"},akts:3,tur:"z",onk:null,secs:[
+   {id:"2",hoca:"Okt. Aslı Demir",gun:[[1,510,570],[3,510,570]],cap:60,dolu:41}]},
+ {code:"ESE 3260",ad:{tr:"Rüzgâr Enerjisi Sistemleri",en:"Wind Energy Systems"},akts:5,tur:"s",onk:null,secs:[
+   {id:"1",hoca:"Doç. Dr. Kerem Şahin",gun:[[2,810,980]],cap:30,dolu:19}]},
+ {code:"ESE 3504",ad:{tr:"Akıllı Enerji Sistemleri",en:"Smart Energy Systems"},akts:5,tur:"s",onk:null,secs:[
+   {id:"1",hoca:"Dr. Öğr. Üyesi Nil Acar",gun:[[3,810,980]],cap:30,dolu:26}]},
+ {code:"ESE 4212",ad:{tr:"Enerji Depolama Sistemleri",en:"Energy Storage Systems"},akts:5,tur:"s",onk:"ESE 3011",secs:[
+   {id:"1",hoca:"Prof. Dr. Selim Arslan",gun:[[1,570,740]],cap:30,dolu:22}]}
 ];
 var CMAP={};COURSES.forEach(function(c){CMAP[c.code]=c});
+function cname(c){return c.ad[LANG]||c.ad.en}
 function sec(code,id){var c=CMAP[code];return c&&c.secs.filter(function(s){return s.id===id})[0]}
 function prereqMet(c){return !c.onk || STUDENT.passed.indexOf(c.onk)>=0}
 
+function fm(m){var h=Math.floor(m/60),x=m%60;return (h<10?"0":"")+h+":"+(x<10?"0":"")+x}
+function timeStr(gun){var D=T("days");return gun.map(function(g){return D[g[0]]+" "+fm(g[1])+"–"+fm(g[2])}).join(", ")}
+
 /* ---------- State ---------- */
-var cart={};                 // code -> secId
-var follows={};              // "code|id" -> true
-var waitlists={              // "code|id" -> [names]; "SEN" = you
-  "ESE 3011|1":["Ahmet Y.","Zeynep K."],
-  "ESE 3011|3":[],
-  "ESE 3001|1":["Caner D.","Elif T.","Burak S."]
-};
+var cart={},follows={},waitlists={
+  "ESE 3011|1":["Ahmet Y.","Zeynep K."],"ESE 3011|3":[],"ESE 3001|1":["Caner D.","Elif T.","Burak S."]};
 var notifOn=false, advApproved=false, filter="all", query="";
-
-// başlangıç sepeti — sayfa dolu bir programla açılsın
 cart["ESE 3021"]="1"; cart["ESE 3031"]="1"; cart["ENG 3001"]="2";
-
 var key=function(code,id){return code+"|"+id};
 var freeOf=function(s){return Math.max(0,s.cap-s.dolu)};
 function qstate(s){var f=freeOf(s);if(f<=0)return"full";if(f<=3)return"amber";return"ok"}
 
-/* ---------- Clash / AKTS ---------- */
 function overlap(a,b){return a[0]===b[0]&&a[1]<b[2]&&b[1]<a[2]}
 function secClash(s1,s2){return s1.gun.some(function(a){return s2.gun.some(function(b){return overlap(a,b)})})}
-function cartClashWith(code,s){
-  for(var cc in cart){if(cc===code)continue;var o=sec(cc,cart[cc]);if(o&&secClash(s,o))return cc}
-  return null;
-}
-function totalAkts(extra){var t=0;for(var cc in cart)t+=CMAP[cc].akts;if(extra)t+=extra;return t}
+function cartClashWith(code,s){for(var cc in cart){if(cc===code)continue;var o=sec(cc,cart[cc]);if(o&&secClash(s,o))return cc}return null}
+function totalAkts(){var t=0;for(var cc in cart)t+=CMAP[cc].akts;return t}
 function aktsIfAdd(code){var cur=totalAkts();var had=cart[code]?CMAP[code].akts:0;return cur-had+CMAP[code].akts}
 
-/* ---------- Toast / notify ---------- */
 function beep(){try{var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;var a=new AC();
   var o=a.createOscillator(),g=a.createGain();o.type="sine";o.frequency.value=880;g.gain.value=.0001;
   o.connect(g);g.connect(a.destination);o.start();
   g.gain.exponentialRampToValueAtTime(.09,a.currentTime+.02);g.gain.exponentialRampToValueAtTime(.0001,a.currentTime+.32);
   o.stop(a.currentTime+.34);o.onended=function(){try{a.close()}catch(e){}};}catch(e){}}
-var toastN=0;
 function toast(title,body,kind,isNotif){
   var box=$("toasts");var d=document.createElement("div");d.className="toast"+(kind?" "+kind:"");
   d.innerHTML='<div class="tt2">'+(isNotif?"🔔 ":"")+title+'</div>'+(body?'<div class="tb">'+body+'</div>':'')+
-    (isNotif?'<div class="src">YaşarOBS · KontenjanAlarm · şimdi</div>':'');
+    (isNotif?'<div class="src">'+T("notif_src")+'</div>':'');
   box.appendChild(d);
-  var n=++toastN;setTimeout(function(){if(d.parentNode){d.style.opacity="0";d.style.transform="translateY(8px)";setTimeout(function(){d.remove()},220)}}, isNotif?8000:4200);
+  setTimeout(function(){if(d.parentNode){d.style.opacity="0";d.style.transform="translateY(8px)";setTimeout(function(){d.remove()},220)}}, isNotif?8000:4200);
   if(isNotif){beep();
     try{if(window.Notification&&Notification.permission==="granted"){new Notification("YaşarOBS · "+title,{body:body})}}catch(e){}
     var dot=$("bellDot");var cur=parseInt(dot.textContent||"0",10)+1;dot.textContent=cur;dot.hidden=false;}
 }
 
-/* ---------- Actions ---------- */
 function tryAdd(code,id){
   var c=CMAP[code],s=sec(code,id);
-  if(!prereqMet(c)){toast("Önkoşul eksik","Bu dersi almak için önce "+c.onk+" dersini geçmelisin.","bad");return false}
+  if(!prereqMet(c)){toast(T("t_pre_t"),T("t_pre_b")(c.onk),"bad");return false}
   var clash=cartClashWith(code,s);
-  if(clash){toast("Çakışma","Bu şube "+clash+" ile aynı saatte. Önce onu değiştir ya da başka şube seç.","bad");return false}
-  if(aktsIfAdd(code)>STUDENT.azami){toast("AKTS sınırı","Bu ders sepete eklenirse azami "+STUDENT.azami+" AKTS aşılıyor. Önce bir ders çıkar.","bad");return false}
-  cart[code]=id;
-  render();
-  return true;
+  if(clash){toast(T("t_clash_t"),T("t_clash_b")(clash),"bad");return false}
+  if(aktsIfAdd(code)>STUDENT.azami){toast(T("t_ects_t"),T("t_ects_b")(STUDENT.azami),"bad");return false}
+  cart[code]=id;render();return true;
 }
-function place(code,id){ // bekleme listesinden kazanınca (koltuk senin) — kontenjan/klasik kontroller atlanır, çakışma yine uyarır
-  var s=sec(code,id),clash=cartClashWith(code,s);
-  cart[code]=id;
-  if(clash)toast("Dikkat: çakışma","Kazandığın "+code+" şubesi "+clash+" ile çakışıyor. Programdan birini değiştir.","warn");
-  render();
-}
-function addFromList(code,id){
-  var s=sec(code,id);
-  if(freeOf(s)<=0){toast("Şube dolu","Bu şubede boş yer yok. Takip et ya da bekleme listesine katıl.","warn");return}
-  if(tryAdd(code,id)){s.dolu++;toast("Sepete eklendi",code+" Şube "+id+" sepetine eklendi.","ok")}
-}
-function removeCart(code){ delete cart[code]; render() }
-function toggleFollow(code,id){
-  var k=key(code,id);
-  if(follows[k]){delete follows[k];toast("Takipten çıktın",code+" Şube "+id+" artık takip edilmiyor.")}
-  else{follows[k]=true;toast("Takibe alındı",code+" Şube "+id+" dolu. Yer açılınca haber vereceğim.","ok");
-    if(!notifOn)toast("İpucu","Masaüstü bildirimi için üstteki “Bildirimler” düğmesini aç.","warn");}
-  render();
-}
-function toggleWait(code,id){
-  var k=key(code,id),wl=waitlists[k]||(waitlists[k]=[]);var i=wl.indexOf("SEN");
-  if(i>=0){wl.splice(i,1);toast("Bekleme listesinden çıktın",code+" Şube "+id+".")}
-  else{wl.push("SEN");follows[k]=true;toast("Bekleme listesine katıldın","Sıran: "+wl.length+". kişi. Yer açılınca sıradakine verilir.","ok")}
-  render();
-}
-function openSeat(code,id){ // "+ Yer aç (demo)" — bir koltuk boşalt
-  var s=sec(code,id),k=key(code,id),wl=waitlists[k]||[];
-  if(s.dolu<=0){toast("Zaten boş","Bu şubede zaten boş yer var.");return}
-  if(wl.length){
-    var front=wl.shift();
-    if(front==="SEN"){
-      place(code,id); // koltuk sana — dolu sayısı aynı kalır (senin koltuğun)
-      delete follows[k];
-      toast("Sıran geldi!",code+" Şube "+id+" sepetine otomatik eklendi. Kaydı tamamlamayı unutma.","ok",true);
-    }else{
-      // koltuk sıradaki öğrenciye gider, dolu kalır
-      toast("Koltuk sıradakine verildi","Boşalan yer bekleme listesindeki "+front+"’e verildi — yenileme yarışı yok.","warn");
-      render();
-    }
-    return;
-  }
-  // bekleme listesi yoksa koltuk gerçekten boşalır
+function place(code,id){var s=sec(code,id),clash=cartClashWith(code,s);cart[code]=id;
+  if(clash)toast(T("t_warnclash_t"),T("t_warnclash_b")(code,clash),"warn");render();}
+function addFromList(code,id){var s=sec(code,id);
+  if(freeOf(s)<=0){toast(T("t_full_t"),T("t_full_b"),"warn");return}
+  if(tryAdd(code,id)){s.dolu++;toast(T("t_added_t"),T("t_added_b")(code,id),"ok")}}
+function removeCart(code){delete cart[code];render()}
+function toggleFollow(code,id){var k=key(code,id);
+  if(follows[k]){delete follows[k];toast(T("t_unfol_t"),T("t_unfol_b")(code,id))}
+  else{follows[k]=true;toast(T("t_fol_t"),T("t_fol_b")(code,id),"ok");if(!notifOn)toast(T("t_tip_t"),T("t_tip_b"),"warn")}
+  render();}
+function toggleWait(code,id){var k=key(code,id),wl=waitlists[k]||(waitlists[k]=[]);var i=wl.indexOf("SEN");
+  if(i>=0){wl.splice(i,1);toast(T("t_unwait_t"),T("t_unwait_b")(code,id))}
+  else{wl.push("SEN");follows[k]=true;toast(T("t_wait_t"),T("t_wait_b")(wl.length),"ok")}
+  render();}
+function openSeat(code,id){var s=sec(code,id),k=key(code,id),wl=waitlists[k]||[];
+  if(s.dolu<=0){toast(T("t_already_t"),T("t_already_b"));return}
+  if(wl.length){var front=wl.shift();
+    if(front==="SEN"){place(code,id);delete follows[k];toast(T("t_seatyou_t"),T("t_seatyou_b")(code,id),"ok",true);}
+    else{toast(T("t_next_t"),T("t_next_b")(front),"warn");render();}
+    return;}
   s.dolu--;
-  if(follows[k]){toast("Yer açıldı!",code+" Şube "+id+" şubesinde yer açıldı. Aşağıdan tek tıkla ekleyebilirsin.","ok",true)}
-  else{toast("Bir kontenjan açıldı",code+" Şube "+id+" artık "+freeOf(s)+" boş.","ok")}
-  render();
-}
-function demoOpenRandom(){
-  var full=[];COURSES.forEach(function(c){c.secs.forEach(function(s){if(freeOf(s)<=0)full.push([c.code,s.id])})});
-  if(!full.length){toast("Dolu şube kalmadı","Canlandıracak dolu şube yok.","warn");return}
-  // takip/bekleme olanı önceliklendir ki demo anlamlı olsun
+  if(follows[k])toast(T("t_opened_t"),T("t_opened_b")(code,id),"ok",true);
+  else toast(T("t_opened2_t"),T("t_opened2_b")(code,id,freeOf(s)),"ok");
+  render();}
+function demoOpenRandom(){var full=[];COURSES.forEach(function(c){c.secs.forEach(function(s){if(freeOf(s)<=0)full.push([c.code,s.id])})});
+  if(!full.length){toast(T("t_nofull_t"),T("t_nofull_b"),"warn");return}
   var pref=full.filter(function(p){var k=key(p[0],p[1]);return follows[k]||(waitlists[k]&&waitlists[k].length)});
-  var pick=(pref.length?pref:full)[Math.floor(Math.random()*(pref.length?pref.length:full.length))];
-  openSeat(pick[0],pick[1]);
-}
+  var pool=pref.length?pref:full;var pick=pool[Math.floor(Math.random()*pool.length)];openSeat(pick[0],pick[1]);}
 
-/* ---------- Render ---------- */
-function alts(code,excludeId){ // aynı dersin boş alternatif şubeleri
-  return CMAP[code].secs.filter(function(s){return s.id!==excludeId&&freeOf(s)>0})
-}
+function alts(code,excludeId){return CMAP[code].secs.filter(function(s){return s.id!==excludeId&&freeOf(s)>0})}
 function courseCard(c){
   var met=prereqMet(c);
-  var h='<div class="course'+(met?'':' locked')+'">';
-  h+='<div class="chead"><span class="ccode">'+c.code+'</span><span class="cname">'+c.ad+'</span>'+
-     '<span class="ctag '+(c.tur==="z"?"z":"")+'">'+(c.tur==="z"?"Zorunlu":"Seçmeli")+'</span>'+
-     '<span class="ctag">'+c.akts+' AKTS</span>'+
-     (c.onk?('<span class="ctag '+(met?"ok":"no")+'">Önkoşul: '+c.onk+' '+(met?"✓":"✗")+'</span>'):'')+
-     '</div>';
-  if(!met){h+='<div class="sec"><div class="clashnote">🔒 '+c.onk+' dersini geçmeden bu derse kayıt olunamaz.</div></div></div>';return h}
+  var h='<div class="course">';
+  h+='<div class="chead"><span class="ccode">'+c.code+'</span><span class="cname">'+cname(c)+'</span>'+
+     '<span class="ctag '+(c.tur==="z"?"z":"")+'">'+(c.tur==="z"?T("req"):T("elec"))+'</span>'+
+     '<span class="ctag">'+c.akts+' ECTS</span>'+
+     (c.onk?('<span class="ctag '+(met?"ok":"no")+'">'+T("pre")+': '+c.onk+' '+(met?"✓":"✗")+'</span>'):'')+'</div>';
+  if(!met){h+='<div class="sec"><div class="clashnote">'+T("locked")(c.onk)+'</div></div></div>';return h}
   c.secs.forEach(function(s){
     var k=key(c.code,s.id),free=freeOf(s),st=qstate(s),inCart=cart[c.code]===s.id;
-    var wl=waitlists[k]||[],youWait=wl.indexOf("SEN")>=0;
-    var clash=cartClashWith(c.code,s);
+    var wl=waitlists[k]||[],youWait=wl.indexOf("SEN")>=0,clash=cartClashWith(c.code,s);
     h+='<div class="sec"><div class="sectop"><div class="secinfo">'+
-       '<div class="sid">Şube '+s.id+(inCart?' <span class="insel">· sepette ✓</span>':'')+'</div>'+
+       '<div class="sid">'+T("sec")+' '+s.id+(inCart?' <span class="insel">'+T("incart")+'</span>':'')+'</div>'+
        '<div class="meta"><span>👤 '+s.hoca+'</span><span>🕒 '+timeStr(s.gun)+'</span></div></div>'+
-       '<div class="quota"><span class="qstate '+st+'">'+(st==="full"?"Dolu":st==="amber"?"Az kaldı":free+" boş yer")+'</span>'+
+       '<div class="quota"><span class="qstate '+st+'">'+(st==="full"?T("st_full"):st==="amber"?T("st_amber"):free+" "+T("st_free"))+'</span>'+
        '<span class="qnum">'+s.dolu+'/'+s.cap+'</span>'+
        '<div class="qbar '+st+'"><i style="width:'+Math.round(s.dolu/s.cap*100)+'%"></i></div></div></div>';
-    // buttons
     h+='<div class="secbtns">';
     if(free>0){
-      if(inCart){h+='<button class="btn sm" data-a="rem" data-c="'+c.code+'">Sepetten çıkar</button>';}
-      else if(clash){h+='<span class="clashnote">⛔ '+clash+' ile çakışıyor — kilitli</span>';}
-      else{h+='<button class="btn pri sm" data-a="add" data-c="'+c.code+'" data-s="'+s.id+'">Sepete ekle</button>';}
+      if(inCart){h+='<button class="btn sm" data-a="rem" data-c="'+c.code+'">'+T("b_remove")+'</button>';}
+      else if(clash){h+='<span class="clashnote">'+T("clash_with")(clash)+'</span>';}
+      else{h+='<button class="btn pri sm" data-a="add" data-c="'+c.code+'" data-s="'+s.id+'">'+T("b_add")+'</button>';}
     }else{
-      if(inCart){h+='<button class="btn sm" data-a="rem" data-c="'+c.code+'">Sepetten çıkar</button>';}
+      if(inCart){h+='<button class="btn sm" data-a="rem" data-c="'+c.code+'">'+T("b_remove")+'</button>';}
       else{
-        h+='<button class="btn sm'+(follows[k]?' pri':'')+'" data-a="fol" data-c="'+c.code+'" data-s="'+s.id+'">'+(follows[k]?"🔔 Takipte ✓":"🔔 Takip et")+'</button>';
-        h+='<button class="btn sm'+(youWait?' pri':'')+'" data-a="wait" data-c="'+c.code+'" data-s="'+s.id+'">'+(youWait?"⏳ Listedesin ✓":"⏳ Bekleme listesine katıl")+'</button>';
-      }
+        h+='<button class="btn sm'+(follows[k]?' pri':'')+'" data-a="fol" data-c="'+c.code+'" data-s="'+s.id+'">'+(follows[k]?T("b_following"):T("b_follow"))+'</button>';
+        h+='<button class="btn sm'+(youWait?' pri':'')+'" data-a="wait" data-c="'+c.code+'" data-s="'+s.id+'">'+(youWait?T("b_waiting"):T("b_wait"))+'</button>';}
     }
-    h+='<button class="btn sm" data-a="open" data-c="'+c.code+'" data-s="'+s.id+'" title="OBS’de birinin dersi bırakmasını canlandırır">+ Yer aç (demo)</button>';
-    h+='</div>';
+    h+='<button class="btn sm" data-a="open" data-c="'+c.code+'" data-s="'+s.id+'" title="'+T("b_open_t")+'">'+T("b_open")+'</button></div>';
     if(free<=0 && !inCart){
-      h+='<div class="wl">⏳ Bekleme listesi: <b>'+wl.length+' kişi</b>'+(youWait?' (sıran: '+(wl.indexOf("SEN")+1)+')':'')+'. Yer açılınca sıradaki kişiye verilir, en hızlı yenileyene değil.</div>';
+      h+='<div class="wl">'+T("wl_line")(wl.length,youWait?T("wl_pos")(wl.indexOf("SEN")+1):"")+'</div>';
       var av=alts(c.code,s.id);
-      if(av.length){h+='<div class="alts"><div class="at">🔀 Alternatif şubeler</div>'+av.map(function(a){
-        return '<div class="altrow"><span>Şube '+a.id+' · '+timeStr(a.gun)+' · <b>'+freeOf(a)+' boş yer</b></span>'+
-          '<button class="btn pri sm" data-a="add" data-c="'+c.code+'" data-s="'+a.id+'">Sepete ekle</button></div>'}).join('')+'</div>';}
-      else{h+='<div class="alts">Bu dersin başka boş şubesi yok. Bekleme listesine katılabilirsin.</div>';}
+      if(av.length){h+='<div class="alts"><div class="at">'+T("alts_t")+'</div>'+av.map(function(a){
+        return '<div class="altrow"><span>'+T("sec")+' '+a.id+' · '+timeStr(a.gun)+' · <b>'+freeOf(a)+' '+T("alts_free")+'</b></span>'+
+          '<button class="btn pri sm" data-a="add" data-c="'+c.code+'" data-s="'+a.id+'">'+T("b_add")+'</button></div>'}).join('')+'</div>';}
+      else{h+='<div class="alts">'+T("alts_none")+'</div>';}
     }
     h+='</div>';
   });
   return h+'</div>';
 }
 function matchFilter(c){
-  if(query){var q=query.toLocaleLowerCase("tr");
-    if((c.code+" "+c.ad+" "+c.secs.map(function(s){return s.hoca}).join(" ")).toLocaleLowerCase("tr").indexOf(q)<0)return false}
-  if(filter==="z")return c.tur==="z";
-  if(filter==="s")return c.tur==="s";
+  if(query){var q=query.toLocaleLowerCase(LANG);
+    if((c.code+" "+cname(c)+" "+c.secs.map(function(s){return s.hoca}).join(" ")).toLocaleLowerCase(LANG).indexOf(q)<0)return false}
+  if(filter==="z")return c.tur==="z";if(filter==="s")return c.tur==="s";
   if(filter==="full")return c.secs.some(function(s){return freeOf(s)<=0});
   if(filter==="follow")return c.secs.some(function(s){return follows[key(c.code,s.id)]});
   return true;
 }
 function render(){
-  // courses
   var list=COURSES.filter(matchFilter);
-  $("courses").innerHTML=list.length?list.map(courseCard).join(''):'<div class="empty">Bu süzgece uyan ders yok.</div>';
-  // alarm stats
+  $("courses").innerHTML=list.length?list.map(courseCard).join(''):'<div class="empty">'+T("no_filter")+'</div>';
   var nf=0,nfull=0,nw=0;
   COURSES.forEach(function(c){c.secs.forEach(function(s){var k=key(c.code,s.id);
-    if(follows[k])nf++; if(freeOf(s)<=0)nfull++; if((waitlists[k]||[]).indexOf("SEN")>=0)nw++;})});
+    if(follows[k])nf++;if(freeOf(s)<=0)nfull++;if((waitlists[k]||[]).indexOf("SEN")>=0)nw++;})});
   $("stFollow").textContent=nf;$("stFull").textContent=nfull;$("stWait").textContent=nw;
   $("navCnt").textContent=Object.keys(cart).length;
-  // cart
   var codes=Object.keys(cart);
-  $("cartCnt").textContent=codes.length?codes.length+" ders":"";
-  if(!codes.length){$("cart").innerHTML='<div class="empty">Sepetin boş. Soldan ders ekle.</div>'}
+  $("cartCnt").textContent=codes.length?T("n_courses")(codes.length):"";
+  if(!codes.length){$("cart").innerHTML='<div class="empty">'+T("empty_cart")+'</div>'}
   else{$("cart").innerHTML=codes.map(function(code){var c=CMAP[code],s=sec(code,cart[code]);
-    return '<div class="citem"><div class="cn"><span class="cc">'+code+' · Ş'+s.id+'</span> '+c.ad+'<small>'+timeStr(s.gun)+'</small></div>'+
-      '<span class="ca">'+c.akts+' AKTS</span><button class="cx" data-a="rem" data-c="'+code+'" aria-label="çıkar">✕</button></div>'}).join('')}
-  // akts
+    return '<div class="citem"><div class="cn"><span class="cc">'+code+' · '+T("sec").charAt(0)+s.id+'</span> '+cname(c)+'<small>'+timeStr(s.gun)+'</small></div>'+
+      '<span class="ca">'+c.akts+' ECTS</span><button class="cx" data-a="rem" data-c="'+code+'" aria-label="remove">✕</button></div>'}).join('')}
   var t=totalAkts();$("aktsVal").textContent=t;$("aktsTile").textContent=t+" / 35";
   $("aktsFill").style.width=Math.min(100,t/STUDENT.azami*100)+"%";
   $("aktsFill").style.background=t>STUDENT.azami?"var(--bad)":t<STUDENT.asgari?"var(--warn)":"var(--accent)";
-  // checks
   var issues=[];
-  if(t>STUDENT.azami)issues.push("Azami "+STUDENT.azami+" AKTS aşıldı.");
-  if(t<STUDENT.asgari)issues.push("Asgari "+STUDENT.asgari+" AKTS’nin altındasın.");
+  if(t>STUDENT.azami)issues.push(T("chk_over")(STUDENT.azami));
+  if(t<STUDENT.asgari)issues.push(T("chk_under")(STUDENT.asgari));
   var clashPairs=[];var ck=Object.keys(cart);
-  for(var i=0;i<ck.length;i++)for(var j=i+1;j<ck.length;j++){
-    if(secClash(sec(ck[i],cart[ck[i]]),sec(ck[j],cart[ck[j]])))clashPairs.push(ck[i]+" ↔ "+ck[j])}
-  if(clashPairs.length)issues.push("Çakışma: "+clashPairs.join(", ")+".");
+  for(var i=0;i<ck.length;i++)for(var j=i+1;j<ck.length;j++){if(secClash(sec(ck[i],cart[ck[i]]),sec(ck[j],cart[ck[j]])))clashPairs.push(ck[i]+" ↔ "+ck[j])}
+  if(clashPairs.length)issues.push(T("chk_clash")(clashPairs.join(", ")));
   var cb=$("checkBox");
-  if(!ck.length){cb.innerHTML='';}
-  else if(issues.length){cb.className="";cb.innerHTML='<div class="check bad">⚠️ <div>Göndermeden önce:<ul>'+issues.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul></div></div>'}
-  else{cb.innerHTML='<div class="check ok">✓ Çakışma, AKTS ve önkoşul kontrolleri tamam.</div>'}
+  if(!ck.length){cb.innerHTML=''}
+  else if(issues.length){cb.innerHTML='<div class="check bad">⚠️ <div>'+T("chk_before")+'<ul>'+issues.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul></div></div>'}
+  else{cb.innerHTML='<div class="check ok">✓ '+T("chk_ok")+'</div>'}
   $("sendAdv").disabled=!(ck.length && !issues.length) || advApproved;
-  $("sendAdv").textContent=advApproved?"Danışmana gönderildi ✓":"Danışman onayına gönder";
+  $("sendAdv").textContent=advApproved?T("sent"):T("p_send");
   renderTTInto("tt");
 }
 function renderTTInto(elId){
-  var tt=$(elId);if(!tt)return;var rows=[];for(var m=510;m<=960;m+=60)rows.push(m); // 08:30–16:30
-  var g0=510,HPX=38;
-  var html='<div></div>'+DAYS.map(function(d){return '<div class="dh">'+d+'</div>'}).join('');
+  var tt=$(elId);if(!tt)return;var rows=[];for(var m=510;m<=960;m+=60)rows.push(m);
+  var g0=510,HPX=38,D=T("days");
+  var html='<div></div>'+D.map(function(d){return '<div class="dh">'+d+'</div>'}).join('');
   html+='<div class="tg">'+rows.map(function(m){return '<div>'+fm(m)+'</div>'}).join('')+'</div>';
-  // collect blocks per day
   var blocks=[[],[],[],[],[]];
   for(var code in cart){var c=CMAP[code],s=sec(code,cart[code]);s.gun.forEach(function(g){blocks[g[0]].push({code:code,s:s,g:g})})}
-  // clash flags
   for(var d=0;d<5;d++){var arr=blocks[d];arr.forEach(function(b){b.clash=arr.some(function(o){return o!==b&&overlap(o.g,b.g)})})}
-  for(var dd=0;dd<5;dd++){
-    html+='<div class="col" style="height:'+(rows.length*HPX)+'px">';
-    blocks[dd].forEach(function(b){
-      var top=(b.g[1]-g0)/60*HPX,h=(b.g[2]-b.g[1])/60*HPX-2;
-      html+='<div class="blk'+(b.clash?' clash':'')+'" style="top:'+top+'px;height:'+Math.max(16,h)+'px"><b>'+b.code+'</b>Ş'+b.s.id+'</div>';
-    });
-    html+='</div>';
-  }
+  for(var dd=0;dd<5;dd++){html+='<div class="col" style="height:'+(rows.length*HPX)+'px">';
+    blocks[dd].forEach(function(b){var top=(b.g[1]-g0)/60*HPX,h=(b.g[2]-b.g[1])/60*HPX-2;
+      html+='<div class="blk'+(b.clash?' clash':'')+'" style="top:'+top+'px;height:'+Math.max(16,h)+'px"><b>'+b.code+'</b>'+T("sec").charAt(0)+b.s.id+'</div>';});
+    html+='</div>';}
   tt.innerHTML=html;
 }
 
-/* ---------- Events ---------- */
-document.addEventListener("click",function(e){
-  var t=e.target.closest("[data-a]");if(!t)return;
-  var a=t.getAttribute("data-a"),code=t.getAttribute("data-c"),id=t.getAttribute("data-s");
-  if(a==="add")addFromList(code,id);
-  else if(a==="rem")removeCart(code);
-  else if(a==="fol")toggleFollow(code,id);
-  else if(a==="wait")toggleWait(code,id);
-  else if(a==="open")openSeat(code,id);
-});
-$("search").addEventListener("input",function(e){query=e.target.value.trim();render()});
-$("tabs").addEventListener("click",function(e){var b=e.target.closest(".tab");if(!b)return;
-  [].forEach.call(this.querySelectorAll(".tab"),function(x){x.classList.remove("on")});b.classList.add("on");filter=b.getAttribute("data-f");render()});
-$("demoOpen").addEventListener("click",demoOpenRandom);
-$("notifBtn").addEventListener("click",function(){
-  notifOn=!notifOn;this.classList.toggle("on",notifOn);
-  this.innerHTML='<span class="sw"></span>'+(notifOn?"Bildirimler açık":"Bildirimler kapalı");
-  if(notifOn){toast("Bildirimler açık","Yer açıldığında ekranda ve (izin verirsen) masaüstünde uyarı alırsın.","ok");
-    try{if(window.Notification&&Notification.permission==="default")Notification.requestPermission()}catch(e){}}
-});
-$("sendAdv").addEventListener("click",function(){
-  advApproved=true;$("advTile").innerHTML='<span class="pill ok">Onaylandı</span>';
-  toast("Danışman onayı","Danışmanın 2026-2027 Güz kaydını onayladı. Program “Ders Programı” sayfanda.","ok",true);
-  render();
-});
-$("logout").addEventListener("click",function(){$("app").hidden=true;$("gate").hidden=false;$("gcap").value="";newCaptcha();startTimer();});
-$("bell").addEventListener("click",function(){$("bellDot").hidden=true;$("bellDot").textContent="0"});
-$("segEN").addEventListener("click",function(){toast("Dil","Bu demo Türkçe olarak hazırlanmıştır. İngilizce sürüm yakında.","warn")});
-
-/* ---------- Login ---------- */
-var capA=0,capB=0,timer=null;
-function newCaptcha(){capA=2+Math.floor(Math.random()*8);capB=1+Math.floor(Math.random()*8);
-  $("gq").innerHTML='<s>'+capA+' + '+capB+' = ?</s>';$("gerr").hidden=true}
-function startTimer(){var left=300;$("gtimer").textContent="05:00";clearInterval(timer);
-  timer=setInterval(function(){left--;if(left<0){newCaptcha();left=300;}
-    var m=Math.floor(left/60),s=left%60;$("gtimer").textContent=(m<10?"0":"")+m+":"+(s<10?"0":"")+s;},1000)}
-$("gqref").addEventListener("click",newCaptcha);
-$("gforgot").addEventListener("click",function(){toast("Şifre sıfırlama","Demo olduğundan şifre sıfırlanmaz. Gerçek işlem için obs.yasar.edu.tr.","warn")});
-$("gedevlet").addEventListener("click",function(){toast("e-Devlet","Demo sürümde e-Devlet girişi kapalı. Güvenlik sorusunu yanıtlayıp “Giriş yap”a bas.","warn")});
-$("gform").addEventListener("submit",function(e){
-  e.preventDefault();
-  var v=parseInt($("gcap").value,10);
-  if(isNaN(v)){$("gerr").textContent="Güvenlik sorusunu yanıtla.";$("gerr").hidden=false;return}
-  if(v!==capA+capB){$("gerr").textContent="Güvenlik sorusu yanlış. Yeni soruyu yanıtla.";$("gerr").hidden=false;newCaptcha();$("gcap").value="";$("gcap").focus();return}
-  clearInterval(timer);$("gate").hidden=true;$("app").hidden=false;window.scrollTo(0,0);
-  toast("Giriş başarılı","Ders kayıt dönemi açık. Kolay gelsin, Demo Öğrenci.","ok");
-});
-
-/* ---------- Planlayıcı (Ders Programı sayfası) ---------- */
+/* ---------- Planner ---------- */
 var plPref="days", plSolutions=[], plI=0;
 function fmtGap(h){var r=Math.round(h*10)/10;return r%1===0?String(r):r.toFixed(1)}
 function comboStats(cb){var byDay={},early=0;
@@ -828,49 +865,77 @@ function planSolve(){var cis=Object.keys(cart);if(!cis.length)return [];
     if(i===cis.length){res.push(Object.assign({},cur));return}
     var c=cis[i];opts[c].forEach(function(id){nodes++;var s=sec(c,id);
       for(var k in cur){if(secClash(s,sec(k,cur[k])))return}
-      cur[c]=id;rec(i+1,cur);delete cur[c];});
-  })(0,{});
+      cur[c]=id;rec(i+1,cur);delete cur[c];});})(0,{});
   res.sort(function(a,b){return scoreCombo(a)-scoreCombo(b)});return res;}
 function planAltsFor(code){var out=[],others=Object.keys(cart).filter(function(c){return c!==code});
   CMAP[code].secs.forEach(function(s){if(s.id===cart[code])return;
     if(others.every(function(c){return !secClash(s,sec(c,cart[c]))}))out.push(s.id);});return out;}
 function applyCombo(cb){for(var c in cb)cart[c]=cb[c];render();}
-function advisorText(){var codes=Object.keys(cart),t=0;
-  var L=["2026-2027 Güz · Enerji Sistemleri Mühendisliği","Demo Öğrenci (22050111001)","","Seçilen dersler:"];
+function advisorText(){var codes=Object.keys(cart),t=0;var L=T("adv_head")();
   codes.forEach(function(c){var C=CMAP[c],s=sec(c,cart[c]);t+=C.akts;
-    L.push("• "+c+" "+C.ad+" · Şube "+s.id+" · "+timeStr(s.gun)+" · "+C.akts+" AKTS");});
+    L.push("• "+c+" "+cname(C)+" · "+T("adv_sec")+" "+s.id+" · "+timeStr(s.gun)+" · "+C.akts+" ECTS");});
   var clash=false,ck=codes;for(var i=0;i<ck.length;i++)for(var j=i+1;j<ck.length;j++){if(secClash(sec(ck[i],cart[ck[i]]),sec(ck[j],cart[ck[j]])))clash=true;}
-  L.push("","Toplam: "+t+" AKTS · "+(clash?"DİKKAT: çakışma var":"Çakışma yok"));return L.join("\n");}
+  L.push("",T("adv_total")(t,clash));return L.join("\n");}
 function renderPlanner(){
   var codes=Object.keys(cart);
-  if(!codes.length){$("plMsg").innerHTML='<div class="check bad">⚠️ Önce Ders Kayıt sayfasından sepete ders ekle.</div>';
+  if(!codes.length){$("plMsg").innerHTML='<div class="check bad">⚠️ '+T("pl_need")+'</div>';
     $("plBackup").innerHTML='';$("plAdvTxt").value='';$("plNav").hidden=true;$("plTt").innerHTML='';return;}
   renderTTInto("plTt");
-  var st=comboStats(cart),free=[0,1,2,3,4].filter(function(d){return st.dayset.indexOf(d)<0}).map(function(d){return DAYS[d]});
-  $("plMsg").innerHTML='<div class="check ok">✓ '+st.days+' gün'+(free.length?(' · boş: '+free.join(", ")):' · boş gün yok')+' · '+fmtGap(st.gaps)+' saat boşluk</div>';
+  var st=comboStats(cart),D=T("days"),free=[0,1,2,3,4].filter(function(d){return st.dayset.indexOf(d)<0}).map(function(d){return D[d]});
+  $("plMsg").innerHTML='<div class="check ok">✓ '+T("pl_stat")(st.days,free.length?free.join(", "):"",fmtGap(st.gaps))+'</div>';
   var rows=codes.map(function(c){return {c:c,alts:planAltsFor(c)}});
   rows.sort(function(a,b){return a.alts.length-b.alts.length});
-  var h='<table class="ptbl"><thead><tr><th>#</th><th>Ders</th><th>Plan A</th><th>Plan B</th><th>Plan C</th></tr></thead><tbody>';
+  var SC=T("adv_sec").charAt(0);
+  var h='<table class="ptbl"><thead><tr><th>'+T("tbl_hash")+'</th><th>'+T("tbl_course")+'</th><th>'+T("tbl_pa")+'</th><th>'+T("tbl_pb")+'</th><th>'+T("tbl_pc")+'</th></tr></thead><tbody>';
   rows.forEach(function(r,i){var C=CMAP[r.c],A=sec(r.c,cart[r.c]);
-    var pb=r.alts[0]?('Ş'+r.alts[0]+' · '+timeStr(sec(r.c,r.alts[0]).gun)):'<span class="badbk">Yedek yok</span>';
-    var pc=r.alts[1]?('Ş'+r.alts[1]+' · '+timeStr(sec(r.c,r.alts[1]).gun)):'—';
-    h+='<tr><td class="ord">'+(i+1)+'</td><td><span class="cc">'+r.c+'</span>'+C.ad+'</td><td>Ş'+A.id+' · '+timeStr(A.gun)+'</td><td>'+pb+'</td><td>'+pc+'</td></tr>';});
+    var pb=r.alts[0]?(SC+r.alts[0]+' · '+timeStr(sec(r.c,r.alts[0]).gun)):'<span class="badbk">'+T("pl_noyed")+'</span>';
+    var pc=r.alts[1]?(SC+r.alts[1]+' · '+timeStr(sec(r.c,r.alts[1]).gun)):'—';
+    h+='<tr><td class="ord">'+(i+1)+'</td><td><span class="cc">'+r.c+'</span>'+cname(C)+'</td><td>'+SC+A.id+' · '+timeStr(A.gun)+'</td><td>'+pb+'</td><td>'+pc+'</td></tr>';});
   $("plBackup").innerHTML=h+'</tbody></table>';
   $("plAdvTxt").value=advisorText();
   $("plNav").hidden=plSolutions.length<2;$("plLbl").textContent=(plI+1)+'/'+plSolutions.length;
 }
 function doPlan(){plSolutions=planSolve();plI=0;
-  if(!plSolutions.length){toast("Program kurulamadı","Bu derslerle çakışmasız program yok. Bir ders çıkar ya da daha çok şubesi olan bir ders dene.","bad");renderPlanner();return;}
-  applyCombo(plSolutions[0]);renderPlanner();
-  toast("Program hazır",plSolutions.length+" çakışmasız seçenek bulundu; en iyisi uygulandı.","ok");}
+  if(!plSolutions.length){toast(T("t_noplan_t"),T("t_noplan_b"),"bad");renderPlanner();return;}
+  applyCombo(plSolutions[0]);renderPlanner();toast(T("t_plan_t"),T("t_plan_b")(plSolutions.length),"ok");}
+
+/* ---------- i18n apply ---------- */
+function applyLang(){
+  document.documentElement.lang=LANG;
+  [].forEach.call(document.querySelectorAll("[data-k]"),function(el){var v=T(el.getAttribute("data-k"));if(v!==undefined)el.innerHTML=v;});
+  [].forEach.call(document.querySelectorAll("[data-kph]"),function(el){var v=T(el.getAttribute("data-kph"));if(v!==undefined)el.setAttribute("placeholder",v);});
+  $("notifLbl").textContent=notifOn?T("a_notif_on"):T("a_notif_off");
+  if(advApproved)$("advTile").innerHTML='<span class="pill ok">'+T("st_adv_ok")+'</span>';
+  else $("advTile").innerHTML='<span class="pill wait">'+T("st_adv_v")+'</span>';
+  var on=["segTR","segEN","lgTR","lgEN"];
+  $("segTR").classList.toggle("on",LANG==="tr");$("segEN").classList.toggle("on",LANG==="en");
+  $("lgTR").classList.toggle("on",LANG==="tr");$("lgEN").classList.toggle("on",LANG==="en");
+  newCaptcha();
+  render();if(!$("pagePlanner").hidden)renderPlanner();
+}
+function setLang(l){LANG=l;try{localStorage.setItem("obsLang",l)}catch(e){}applyLang();}
+
+/* ---------- Events ---------- */
+document.addEventListener("click",function(e){
+  var t=e.target.closest("[data-a]");if(!t)return;
+  var a=t.getAttribute("data-a"),code=t.getAttribute("data-c"),id=t.getAttribute("data-s");
+  if(a==="add")addFromList(code,id);else if(a==="rem")removeCart(code);
+  else if(a==="fol")toggleFollow(code,id);else if(a==="wait")toggleWait(code,id);else if(a==="open")openSeat(code,id);
+});
+$("search").addEventListener("input",function(e){query=e.target.value.trim();render()});
+$("tabs").addEventListener("click",function(e){var b=e.target.closest(".tab");if(!b)return;
+  [].forEach.call(this.querySelectorAll(".tab"),function(x){x.classList.remove("on")});b.classList.add("on");filter=b.getAttribute("data-f");render()});
+$("demoOpen").addEventListener("click",demoOpenRandom);
+$("notifBtn").addEventListener("click",function(){notifOn=!notifOn;this.classList.toggle("on",notifOn);
+  $("notifLbl").textContent=notifOn?T("a_notif_on"):T("a_notif_off");
+  if(notifOn){toast(T("t_notifon_t"),T("t_notifon_b"),"ok");try{if(window.Notification&&Notification.permission==="default")Notification.requestPermission()}catch(e){}}});
 document.querySelector(".side").addEventListener("click",function(e){
   var b=e.target.closest(".snav");if(!b)return;var p=b.getAttribute("data-page");
   if(p==="kayit"||p==="planner"){
     [].forEach.call(this.querySelectorAll(".snav"),function(x){x.classList.remove("on")});b.classList.add("on");
     $("pageKayit").hidden=(p!=="kayit");$("pagePlanner").hidden=(p!=="planner");
     if(p==="planner")renderPlanner();window.scrollTo(0,0);
-  }else{toast("Yakında","Bu bölüm demo kapsamı dışında.","warn");
-    var cur=$("pagePlanner").hidden?"kayit":"planner";
+  }else{var cur=$("pagePlanner").hidden?"kayit":"planner";
     [].forEach.call(this.querySelectorAll(".snav"),function(x){x.classList.toggle("on",x.getAttribute("data-page")===cur)});}
 });
 $("plPref").addEventListener("click",function(e){var b=e.target.closest(".tab");if(!b)return;
@@ -880,10 +945,36 @@ $("plGen").addEventListener("click",doPlan);
 $("plPrev").addEventListener("click",function(){if(!plSolutions.length)return;plI=(plI-1+plSolutions.length)%plSolutions.length;applyCombo(plSolutions[plI]);renderPlanner();});
 $("plNext").addEventListener("click",function(){if(!plSolutions.length)return;plI=(plI+1)%plSolutions.length;applyCombo(plSolutions[plI]);renderPlanner();});
 $("plCopy").addEventListener("click",function(){var t=$("plAdvTxt");t.focus();t.select();
-  try{navigator.clipboard.writeText(t.value).then(function(){toast("Kopyalandı","Danışman özeti panoya kopyalandı.","ok")},function(){toast("Metni seçtim","Ctrl/Cmd+C ile kopyalayabilirsin.")});}
-  catch(e){toast("Metni seçtim","Ctrl/Cmd+C ile kopyalayabilirsin.");}});
+  try{navigator.clipboard.writeText(t.value).then(function(){toast(T("t_copied_t"),T("t_copied_b"),"ok")},function(){toast(T("t_selected_t"),T("t_selected_b"))});}
+  catch(e){toast(T("t_selected_t"),T("t_selected_b"));}});
+$("logout").addEventListener("click",function(){$("app").hidden=true;$("gate").hidden=false;$("gpw").value="demo1234";$("gcap").value="";newCaptcha();startTimer();});
+$("bell").addEventListener("click",function(){$("bellDot").hidden=true;$("bellDot").textContent="0"});
+$("segTR").addEventListener("click",function(){setLang("tr")});
+$("segEN").addEventListener("click",function(){setLang("en")});
+$("lgTR").addEventListener("click",function(){setLang("tr")});
+$("lgEN").addEventListener("click",function(){setLang("en")});
 
-newCaptcha();startTimer();render();
+/* ---------- Login ---------- */
+var capA=0,capB=0,timer=null;
+function newCaptcha(){capA=2+Math.floor(Math.random()*8);capB=1+Math.floor(Math.random()*8);
+  $("gq").textContent=capA+" + "+capB+" = ?";$("gerr").hidden=true}
+function startTimer(){var left=300;$("gtimer").textContent="05:00";clearInterval(timer);
+  timer=setInterval(function(){left--;if(left<0){newCaptcha();left=300;}
+    var m=Math.floor(left/60),s=left%60;$("gtimer").textContent=(m<10?"0":"")+m+":"+(s<10?"0":"")+s;},1000)}
+$("gqref").addEventListener("click",newCaptcha);
+$("gforgot").addEventListener("click",function(){toast(T("t_reset_t"),T("t_reset_b"),"warn")});
+$("gedevlet").addEventListener("click",function(){toast(T("t_edevlet_t"),T("t_edevlet_b"),"warn")});
+$("gform").addEventListener("submit",function(e){
+  e.preventDefault();var v=parseInt($("gcap").value,10);
+  if(isNaN(v)){$("gerr").textContent=T("g_err_cap");$("gerr").hidden=false;return}
+  if(v!==capA+capB){$("gerr").textContent=T("g_err_capw");$("gerr").hidden=false;newCaptcha();$("gcap").value="";$("gcap").focus();return}
+  clearInterval(timer);$("gate").hidden=true;$("app").hidden=false;window.scrollTo(0,0);
+  toast(T("t_login_t"),T("t_login_b"),"ok");
+});
+
+try{var sv=localStorage.getItem("obsLang");if(sv==="tr"||sv==="en")LANG=sv;}catch(e){}
+applyLang();startTimer();
+
 </script>
 
 </body>
